@@ -1,6 +1,9 @@
 /**
  * Created by Thorpedoes on 4/12/2016.
  */
+
+package appjam.scheduler;
+
 public class EventInfo {
     // Date & Time
     private int day;
