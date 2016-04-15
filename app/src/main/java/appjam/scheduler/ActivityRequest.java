@@ -1,14 +1,22 @@
 package appjam.scheduler;
 
-public enum ActivityRequest {
-    GET_EVENT_INFO, INVALID;
 
-    public static ActivityRequest fromInt(int x) {
-        switch(x) {
-            case 0:
-                return GET_EVENT_INFO;
-            default:
-                return INVALID;
-        }
+import android.support.v4.util.ArrayMap;
+
+public class ActivityRequest {
+
+    private ArrayMap<String, Integer> map = new ArrayMap<>();
+
+    public ActivityRequest() {
+        fillMap();
+    }
+
+    public int activityToInt(String activity) {
+        return map.get(activity);
+    }
+
+
+    private void fillMap() {
+        map.put("GET_EVENT_INFO", 0);
     }
 }

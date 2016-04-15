@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<CalendarEvent> eventList;
     private float m_defaultTextSize = 24f;
+    private ActivityRequest activityRequests = new ActivityRequest();
     // hold what's selected
 
     @Override
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), EventDetails.class);
-                    startActivityForResult(intent, 0);
+                    startActivityForResult(intent, activityRequests.activityToInt("GET_EVENT_INFO"));
                 }
             });
         }
@@ -65,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
    @Override
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       if(ActivityRequest.fromInt(requestCode) == ActivityRequest.GET_EVENT_INFO)
-           ;
+       if(requestCode == activityRequests.activityToInt("GET_EVENT_INFO") && resultCode == RESULT_OK) {
+       }
    }
 
     private void updateTableLayout() {
