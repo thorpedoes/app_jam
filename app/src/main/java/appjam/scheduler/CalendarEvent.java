@@ -4,18 +4,44 @@
 
 package appjam.scheduler;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
-public class CalendarEvent {
+public class CalendarEvent implements Parcelable {
     /**
      * Reformat repeatTrue so that it can account for multiple days of the week
      */
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public CalendarEvent createFromParcel(Parcel source) {
+            return new CalendarEvent(source);
+        }
+        public CalendarEvent[] newArray(int size) {
+            return new CalendarEvent[size];
+        }
+    };
+
     private String title;
     private String description;
     private EventInfo eventInfo;
     private boolean flashActive;
     private int repeatTrue;
     private String alrmSound;
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int ignored) {
+        out.writeString(title);
+        out.writeString(description);
+
+        out.writeInt(repeatTrue);
+        out.writeString(alrmSound);
+    }
+
+
 
     // Constructor
     public CalendarEvent(String newTitle, String newDescription, EventInfo newDate, boolean flash, int repeat, String newSound) {
@@ -25,6 +51,14 @@ public class CalendarEvent {
         flashActive = flash;
         repeatTrue = repeat;
         alrmSound = newSound;
+    }
+
+    public CalendarEvent(Parcel in) {
+        title = in.readString();
+        description = in.readString();
+
+        repeatTrue = in.readInt();
+        alrmSound = in.readString();
     }
 
     // Getters

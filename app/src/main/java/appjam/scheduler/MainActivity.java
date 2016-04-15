@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<CalendarEvent> result = new ArrayList<>();
         EventInfo testInfo = new EventInfo(1,2,3,1,2,0,2);
         CalendarEvent testCE = new CalendarEvent("Test", "Something", testInfo, false, 0, "cool music");
-        CalendarEvent testCE1 = new CalendarEvent("Test", "SomethingElse", testInfo, false, 0, "cool music");
+        CalendarEvent testCE1 = new CalendarEvent("Whatever", "SomethingElse", testInfo, false, 0, "cool music");
         result.add(testCE);
         result.add(testCE1);
         return result;
