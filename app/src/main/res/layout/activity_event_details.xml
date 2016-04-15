@@ -9,4 +9,121 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="appjam.scheduler.EventDetails">
 
+   <Button
+       android:layout_height="wrap_content"
+       android:layout_width="wrap_content"
+       android:id="@+id/saveButton"
+       android:layout_alignTop="@+id/cancelButton"
+       android:layout_alignParentRight="true"
+       android:layout_alignParentEnd="true"
+       android:layout_marginRight="42dp"
+       android:layout_marginEnd="42dp"
+       android:text="Save">
+
+   </Button>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/cancelButton"
+        android:layout_marginBottom="58dp"
+        android:text="Cancel"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/dateText"
+        android:layout_toEndOf="@+id/dateText">
+    </Button>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Event Name:"
+        android:id="@+id/nameText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Date:"
+        android:id="@+id/dateText"
+        android:layout_below="@+id/nameText"
+        android:layout_alignLeft="@+id/nameText"
+        android:layout_alignStart="@+id/nameText"
+        android:layout_marginTop="49dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Flash:"
+        android:id="@+id/flashText"
+        android:layout_below="@+id/dateText"
+        android:layout_alignLeft="@+id/dateText"
+        android:layout_alignStart="@+id/dateText"
+        android:layout_marginTop="49dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Sound:"
+        android:id="@+id/soundText"
+        android:layout_below="@+id/flashText"
+        android:layout_alignLeft="@+id/flashText"
+        android:layout_alignStart="@+id/flashText"
+        android:layout_marginTop="49dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Repeat:"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/soundText"
+        android:layout_alignLeft="@+id/soundText"
+        android:layout_alignStart="@+id/soundText"
+        android:layout_marginTop="49dp" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/flashSwitch"
+        android:checked="false"
+        android:layout_alignTop="@+id/flashText"
+        android:layout_alignRight="@+id/saveButton"
+        android:layout_alignEnd="@+id/saveButton" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameEntry"
+        android:layout_alignTop="@+id/nameText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:minLines="1"
+        android:minWidth="25dp"
+        android:layout_alignLeft="@+id/saveButton"
+        android:layout_alignStart="@+id/saveButton" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/dateEntry"
+        android:layout_alignTop="@+id/dateText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/nameEntry"
+        android:layout_alignStart="@+id/nameEntry"
+        android:minWidth="25dp"
+        android:minLines="1"
+        android:maxWidth="20dp"
+        android:maxLength="20" />
+
 </RelativeLayout>

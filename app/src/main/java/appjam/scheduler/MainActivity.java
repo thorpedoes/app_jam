@@ -57,12 +57,17 @@ public class MainActivity extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), EventDetails.class);
-                    // set intent.putExtra(key, val) based on what's selected
-                    startActivity(intent);
+                    startActivityForResult(intent, 0);
                 }
             });
         }
     }
+
+   @Override
+   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       if(ActivityRequest.fromInt(requestCode) == ActivityRequest.GET_EVENT_INFO)
+           ;
+   }
 
     private void updateTableLayout() {
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
