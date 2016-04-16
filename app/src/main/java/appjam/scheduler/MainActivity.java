@@ -18,11 +18,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<CalendarEvent> eventList;
-    private int m_checkInterval = 5000; // 5000 ms = 5 sec, check status every 5 seconds
+    private int m_checkInterval = 50; // 500 ms = .5 sec, check status every .5 seconds
     private Handler m_handler = new Handler();
     private ArrayList<BarControl> bars = new ArrayList<>();
 
@@ -37,11 +38,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //eventList = getSampleEventList(); // eventList = reader.getData()
         showHealthBarScreen();
-        m_StatusChecker.run();
+        //m_StatusChecker.run();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean focus) {
+        super.onWindowFocusChanged(focus);
+        //updateBars((TableLayout) findViewById(R.id.tableLayout));
+        m_StatusChecker.run();
+    }
     // on destroy pass ArrayLis to reader
 
 
@@ -64,12 +70,11 @@ public class MainActivity extends AppCompatActivity {
     private void showHealthBarScreen() {
         setContentView(R.layout.health_bar_screen);
 
-        for(CalendarEvent ce : getSampleEventList()) {
-            bars.add(new BarControl(ce));
-        }
-
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
-        updateBars(tl);
+        for(CalendarEvent ce : getSampleEventList()) {
+            bars.add(new BarControl(ce, tl));
+        }
+       // updateBars(tl);
 
         Button addButton = (Button) findViewById(R.id.addEventButton);
         assert addButton != null;
@@ -86,8 +91,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateBars(TableLayout tl) {
         tl.removeAllViews();
-        for(BarControl barControl : bars) {
-            barControl.update(tl);
+        for(Iterator<BarControl> it = bars.iterator(); it.hasNext();) {
+            BarControl current = it.next();
+            if(current.finished()) {
+                it.remove();
+            } else {
+                current.update(tl);
+            }
+
         }
     }
 
