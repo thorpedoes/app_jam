@@ -26,11 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/cancelButton"
-        android:layout_marginBottom="58dp"
         android:text="Cancel"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/dateText"
-        android:layout_toEndOf="@+id/dateText">
+        android:layout_alignRight="@+id/startTimeText"
+        android:layout_alignEnd="@+id/startTimeText">
     </Button>
 
     <TextView
@@ -47,54 +46,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Date:"
-        android:id="@+id/dateText"
+        android:text="Start Time:"
+        android:id="@+id/startTimeText"
+        android:layout_marginTop="49dp"
         android:layout_below="@+id/nameText"
         android:layout_alignLeft="@+id/nameText"
-        android:layout_alignStart="@+id/nameText"
-        android:layout_marginTop="49dp" />
+        android:layout_alignStart="@+id/nameText" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Flash:"
-        android:id="@+id/flashText"
-        android:layout_below="@+id/dateText"
-        android:layout_alignLeft="@+id/dateText"
-        android:layout_alignStart="@+id/dateText"
-        android:layout_marginTop="49dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Sound:"
-        android:id="@+id/soundText"
-        android:layout_below="@+id/flashText"
-        android:layout_alignLeft="@+id/flashText"
-        android:layout_alignStart="@+id/flashText"
-        android:layout_marginTop="49dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Repeat:"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/soundText"
-        android:layout_alignLeft="@+id/soundText"
-        android:layout_alignStart="@+id/soundText"
-        android:layout_marginTop="49dp" />
-
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/flashSwitch"
-        android:checked="false"
-        android:layout_alignTop="@+id/flashText"
-        android:layout_alignRight="@+id/saveButton"
-        android:layout_alignEnd="@+id/saveButton" />
+        android:text="Duration:"
+        android:id="@+id/durationText"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -110,20 +77,35 @@
         android:layout_alignLeft="@+id/saveButton"
         android:layout_alignStart="@+id/saveButton" />
 
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"
+        android:id="@+id/timePicker"
+        android:layout_alignTop="@+id/startTimeText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/dateEntry"
-        android:layout_alignTop="@+id/dateText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/nameEntry"
-        android:layout_alignStart="@+id/nameEntry"
-        android:minWidth="25dp"
-        android:minLines="1"
-        android:maxWidth="20dp"
-        android:maxLength="20" />
+        android:inputType="numberDecimal"
+        android:ems="5"
+        android:maxEms="5"
+        android:id="@+id/minuteField"
+        android:layout_alignTop="@+id/hourField"
+        android:layout_alignRight="@+id/timePicker"
+        android:layout_alignEnd="@+id/timePicker" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="3"
+        android:maxEms="3"
+        android:id="@+id/hourField"
+        android:layout_alignTop="@+id/durationText"
+        android:layout_toLeftOf="@+id/minuteField"
+        android:layout_toStartOf="@+id/minuteField" />
 
 </RelativeLayout>

@@ -7,15 +7,11 @@ import android.view.View;
 import android.widget.Button;
 
 public class EventDetails extends AppCompatActivity {
-
-    private ActivityRequest activityRequests = new ActivityRequest();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
         registerButtons();
-
     }
 
     private void registerButtons() {
