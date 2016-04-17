@@ -9,6 +9,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class EventWriter {
     private File dir;
@@ -16,7 +17,11 @@ public class EventWriter {
     private FileWriter writer;
     private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/apj_scheduler";
 
-    public EventWriter() {
+    private ArrayList<CalendarEvent> eventList = null;
+
+    public EventWriter(ArrayList<CalendarEvent> events) {
+        eventList = events;
+
         dir = new File(path);
         if (!dir.exists()) dir.mkdir();
 
@@ -29,9 +34,12 @@ public class EventWriter {
         }
     }
 
-    public void writeToFile(String msg) throws IOException {
-        writer.write(msg);
-        writer.flush();
+    public void writeToFile() throws IOException {
+        for (CalendarEvent ce : eventList) {
+            writer.write(ce.getTitle() + ";");
+            writer.write(ce.getAlrmSound() + ";\n");
+            writer.flush();
+        }
         writer.close();
     }
 }

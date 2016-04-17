@@ -1,11 +1,13 @@
 package appjam.scheduler;
 
+import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import java.io.IOException;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private int m_checkInterval = 50; // 500 ms = .5 sec, check status every .5 seconds
     private Handler m_handler = new Handler();
     private ArrayList<BarControl> bars = new ArrayList<>();
+    private EventReader reader;
+    private EventWriter writer;
 
     Runnable m_StatusChecker = new Runnable() {
         @Override
@@ -38,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        reader = new EventReader();
+        try {
+            eventList = reader.readFromFile();
+            Log.d("EVENTREADER", "read");
+        } catch (IOException e) {
+            Log.d("IOException", "reader main");
+            e.printStackTrace();
+        }
         showHealthBarScreen();
         //m_StatusChecker.run();
     }
@@ -49,7 +62,29 @@ public class MainActivity extends AppCompatActivity {
         m_StatusChecker.run();
     }
     // on destroy pass ArrayLis to reader
+    @Override
+    protected void onPause() {
+        super.onPause();
+        writer = new EventWriter(getSampleEventList());
+        try {
+            writer.writeToFile();
+            Log.d("EVENTWRTIER", "onPause");
+        } catch (IOException e) {
+            Log.d("IOException", "onPause writer");
+        }
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        writer = new EventWriter(getSampleEventList());
+        try {
+            writer.writeToFile();
+            Log.d("EVENTWRTIER", "onStop");
+        } catch (IOException e) {
+            Log.d("IOException", "onStop writer");
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

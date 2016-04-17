@@ -16,7 +16,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 
 public class EventReader {
-    private ArrayList<CalendarEvent> eventItems;
+    private ArrayList<CalendarEvent> eventList;
 
     private File inFile;
     private FileReader reader;
@@ -37,11 +37,23 @@ public class EventReader {
         }
     }
 
-    public void readFromFile() throws IOException {
+    public ArrayList<CalendarEvent> readFromFile() throws IOException {
+        eventList = new ArrayList<>();
         String line = null;
         while ((line = buffer.readLine()) != null) {
-            System.out.println(line);
+            String[] tokens = line.split(";");
+            eventList.add(makeEvent(tokens));
         }
         buffer.close();
+
+        return eventList;
+    }
+
+    private CalendarEvent makeEvent(String[] tokens) {
+        CalendarEvent newEvent = new CalendarEvent();
+
+
+
+        return newEvent;
     }
 }
