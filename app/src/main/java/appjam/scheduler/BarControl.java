@@ -26,7 +26,7 @@ public class BarControl {
         m_ce = ce;
         m_parent = tl;
         m_barImg = new ImageView(tl.getContext());
-        m_barImg.setImageResource(R.drawable.hb);
+        m_barImg.setImageResource(R.drawable.hb1);
         m_barImg.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
         drawInitial(tl);
     }
