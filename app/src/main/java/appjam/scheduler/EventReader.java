@@ -6,41 +6,42 @@
 
 package appjam.scheduler;
 
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
 public class EventReader {
     private ArrayList<CalendarEvent> eventItems;
+
+    private File inFile;
     private FileReader reader;
     private BufferedReader buffer;
-
-    private String title;
-    private String description;
-    private EventInfo eventInfo;
-    private boolean flashActive;
-    private int repeatTrue;
-    private String alrmSound;
-
-    private int year;
-    private int month;
-    private int day;
-    private int hour;
-    private int minute;
+    private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/apj_scheduler/events.txt";
 
     public EventReader()
     {
-        eventItems = new ArrayList<CalendarEvent>();
-        Log.d("WHAT", "hey there");
-//        reader = new FileReader("./file.txt");
-        //buffer = new BufferedReader(reader);
+        inFile = new File(path);
+        if (inFile.exists()) {
+            try {
+                reader = new FileReader(inFile);
+                buffer = new BufferedReader(reader);
+            } catch (IOException e) {
+                Log.d("IOException", "in reader");
+                e.printStackTrace();
+            }
+        }
     }
 
-    //public ArrayList<CalendarEvent> getData()
-    //{
-
-    //}
-
+    public void readFromFile() throws IOException {
+        String line = null;
+        while ((line = buffer.readLine()) != null) {
+            System.out.println(line);
+        }
+        buffer.close();
+    }
 }
