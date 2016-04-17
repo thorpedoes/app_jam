@@ -8,10 +8,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import java.util.Calendar;
+
 public class CalendarEvent implements Parcelable {
-    /**
-     * Reformat repeatTrue so that it can account for multiple days of the week
-     */
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public CalendarEvent createFromParcel(Parcel source) {
@@ -23,10 +22,9 @@ public class CalendarEvent implements Parcelable {
     };
 
     private String title;
-    private String description;
-    private EventInfo eventInfo;
-    private boolean flashActive;
-    private int repeatTrue;
+    private Calendar cal;
+    private int durHours;
+    private int durMintues;
     private String alrmSound;
 
     public int describeContents() {
@@ -35,45 +33,30 @@ public class CalendarEvent implements Parcelable {
 
     public void writeToParcel(Parcel out, int ignored) {
         out.writeString(title);
-        out.writeString(description);
 
-        out.writeInt(repeatTrue);
         out.writeString(alrmSound);
     }
 
-
-
-    // Constructor
-    public CalendarEvent(String newTitle, String newDescription, EventInfo newDate, boolean flash, int repeat, String newSound) {
-        title = newTitle;
-        description = newDescription;
-        eventInfo = newDate;
-        flashActive = flash;
-        repeatTrue = repeat;
-        alrmSound = newSound;
-    }
+    // Constructors
+    public CalendarEvent() {}
 
     public CalendarEvent(Parcel in) {
         title = in.readString();
-        description = in.readString();
 
-        repeatTrue = in.readInt();
         alrmSound = in.readString();
     }
 
     // Getters
     public String getTitle() { return title; }
-    public String getDescription() { return description; }
-    public EventInfo getEventInfo() { return eventInfo; }
-    public boolean getFlashActive() { return flashActive; }
-    public int getRepeatTrue() { return repeatTrue; }
+    public Calendar getEventTime() { return cal; }
+    public int getHours() { return hoursLong; }
+    public int getMinutes() {}
     public String getAlrmSound() { return alrmSound; }
 
     // Setters
     public void setTitle(String newTitle) { title = newTitle; }
-    public void setDescription(String newDescription) { description = newDescription; }
-    public void setEventInfo(EventInfo newEventInfo) { eventInfo = newEventInfo; }
-    public void setFlash_active(boolean flash) { flashActive = flash; }
-    public void setRepeatTrue(int repeat) { repeatTrue = repeat; }
+    public void setEventTime(Calendar newCal) { cal = newCal; }
+    public void setHours(int durHours) { hoursLong = durHours; }
+    public void setMinutes(int durMinutes) { minutesLong = durMinutes; }
     public void setAlrmSound(String newSound) { alrmSound = newSound; }
 }
