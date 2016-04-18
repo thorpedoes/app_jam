@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //eventList = getSampleEventList();
-        //reader = new EventReader();
-        //try {
-        //    eventList = reader.readFromFile();
-        //    Log.d("EVENTREADER", "read");
-        //} catch (IOException e) {
-        //    Log.d("IOException", "reader main");
-        //    e.printStackTrace();
-        //}
+        reader = new EventReader();
+        try {
+            eventList = reader.readFromFile();
+            Log.d("EVENTREADER", "read");
+        } catch (IOException e) {
+            Log.d("IOException", "reader main");
+            e.printStackTrace();
+        }
         showHealthBarScreen();
     }
 
@@ -59,25 +59,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //writer = new EventWriter(getSampleEventList());
-        //try {
-        //    writer.writeToFile();
-        //    Log.d("EVENTWRTIER", "onPause");
-        //} catch (IOException e) {
-        //    Log.d("IOException", "onPause writer");
-        //}
+        writer = new EventWriter(getSampleEventList());
+        try {
+            writer.writeToFile();
+            Log.d("EVENTWRTIER", "onPause");
+        } catch (IOException e) {
+            Log.d("IOException", "onPause writer");
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        //writer = new EventWriter(getSampleEventList());
-        //try {
-        //    writer.writeToFile();
-        //    Log.d("EVENTWRTIER", "onStop");
-        //} catch (IOException e) {
-        //    Log.d("IOException", "onStop writer");
-        //}
+        writer = new EventWriter(getSampleEventList());
+        try {
+            writer.writeToFile();
+            Log.d("EVENTWRTIER", "onStop");
+        } catch (IOException e) {
+            Log.d("IOException", "onStop writer");
+        }
     }
 
     @Override

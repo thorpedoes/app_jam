@@ -32,6 +32,7 @@ public class CalendarEvent implements Parcelable {
 
     public void writeToParcel(Parcel out, int ignored) {
         out.writeString(title);
+
         out.writeString(alrmSound);
     }
 
