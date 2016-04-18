@@ -26,6 +26,7 @@ public class EventWriter {
         dir = new File(path);
         if (!dir.exists()) dir.mkdir();
 
+        Log.d("EVENTWRITER", "Constructor");
         outFile = new File(dir, "events.txt");
         try {
             writer = new FileWriter(outFile);
@@ -36,6 +37,7 @@ public class EventWriter {
     }
 
     public void writeToFile() throws IOException {
+        Log.d("EVENTWRITER", "writeToFile()");
         for (CalendarEvent ce : eventList) {
             writer.write(ce.getTitle() + ';');
             writeEventTime(ce.getStartTime());
@@ -47,6 +49,15 @@ public class EventWriter {
     }
 
     public void writeEventTime(Calendar cal) {
-
+        try {
+            writer.write(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)) + ':');
+            writer.write(Integer.toString(cal.get(Calendar.MONTH)) + ':');
+            writer.write(Integer.toString(cal.get(Calendar.YEAR)) + ':');
+            writer.write(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)) + ':');
+            writer.write(Integer.toString(cal.get(Calendar.MINUTE)) + ';');
+        } catch (IOException e) {
+            Log.d("IOException", "writing Cal");
+            e.printStackTrace();
+        }
     }
 }

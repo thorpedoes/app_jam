@@ -63,4 +63,19 @@ public class CalendarEvent implements Parcelable {
     public void setStartTime(Calendar startCal) { startTime = startCal; }
     public void setEndTime(Calendar endCal) { endTime = endCal; }
     public void setAlrmSound(String newSound) { alrmSound = newSound; }
+
+    public void printEventInfo() {
+        System.out.print(title + " | ");
+        System.out.print(Integer.toString(startTime.get(Calendar.DAY_OF_MONTH)) + ' ');
+        System.out.print(Integer.toString(startTime.get(Calendar.MONTH)) + ' ');
+        System.out.print(Integer.toString(startTime.get(Calendar.YEAR)) + ' ');
+        System.out.print(Integer.toString(startTime.get(Calendar.HOUR_OF_DAY)) + ':');
+        System.out.print(Integer.toString(startTime.get(Calendar.MINUTE)) + " | ");
+        System.out.print(Integer.toString(endTime.get(Calendar.DAY_OF_MONTH)) + ' ');
+        System.out.print(Integer.toString(endTime.get(Calendar.MONTH)) + ' ');
+        System.out.print(Integer.toString(endTime.get(Calendar.YEAR)) + ' ');
+        System.out.print(Integer.toString(endTime.get(Calendar.HOUR_OF_DAY)) + ':');
+        System.out.print(Integer.toString(endTime.get(Calendar.MINUTE)) + " | ");
+        System.out.print(alrmSound + '\n');
+    }
 }

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d("IOException", "reader main");
             e.printStackTrace();
         }
+
+        for (CalendarEvent ce : eventList) {
+            ce.printEventInfo();
+        }
+
         showHealthBarScreen();
     }
 
@@ -92,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         cal.set(Calendar.YEAR, 2016);
         cal.set(Calendar.MONTH, Calendar.JULY);
         cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 22);
+        cal.set(Calendar.MINUTE, 30);
         CalendarEvent testCE = new CalendarEvent("Test", cal, cal, "cool music");
         CalendarEvent testCE1 = new CalendarEvent("Whatever", cal, cal, "cool music");
         result.add(testCE);
