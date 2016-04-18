@@ -27,13 +27,13 @@ public class EventReader {
     {
         inFile = new File(path);
         if (inFile.exists()) {
-            try {
-                reader = new FileReader(inFile);
-                buffer = new BufferedReader(reader);
-            } catch (IOException e) {
-                Log.d("IOException", "in reader");
-                e.printStackTrace();
-            }
+            //try {
+            //    reader = new FileReader(inFile);
+            //    buffer = new BufferedReader(reader);
+            //} catch (IOException e) {
+            //    Log.d("IOException", "in reader");
+            //    e.printStackTrace();
+            //}
         }
     }
 

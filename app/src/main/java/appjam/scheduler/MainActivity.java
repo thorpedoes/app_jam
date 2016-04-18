@@ -1,7 +1,5 @@
 package appjam.scheduler;
 
-import android.app.usage.UsageEvents;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,23 +8,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 
 import java.io.IOException;
 import java.util.Date;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<CalendarEvent> eventList;
-    private int m_checkInterval = 50; // 500 ms = .5 sec, check status every .5 seconds
+    private ArrayList<CalendarEvent> eventList = new ArrayList<>();
+    private int m_checkInterval = 500; // 500 ms = .5 sec, check status every .5 seconds
     private Handler m_handler = new Handler();
     private ArrayList<BarControl> bars = new ArrayList<>();
     private EventReader reader;
@@ -43,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //eventList = getSampleEventList();
         //reader = new EventReader();
         //try {
         //    eventList = reader.readFromFile();
@@ -52,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         //    e.printStackTrace();
         //}
         showHealthBarScreen();
-        //m_StatusChecker.run();
     }
 
     @Override
@@ -65,25 +59,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        writer = new EventWriter(getSampleEventList());
-        try {
-            writer.writeToFile();
-            Log.d("EVENTWRTIER", "onPause");
-        } catch (IOException e) {
-            Log.d("IOException", "onPause writer");
-        }
+        //writer = new EventWriter(getSampleEventList());
+        //try {
+        //    writer.writeToFile();
+        //    Log.d("EVENTWRTIER", "onPause");
+        //} catch (IOException e) {
+        //    Log.d("IOException", "onPause writer");
+        //}
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        writer = new EventWriter(getSampleEventList());
-        try {
-            writer.writeToFile();
-            Log.d("EVENTWRTIER", "onStop");
-        } catch (IOException e) {
-            Log.d("IOException", "onStop writer");
-        }
+        //writer = new EventWriter(getSampleEventList());
+        //try {
+        //    writer.writeToFile();
+        //    Log.d("EVENTWRTIER", "onStop");
+        //} catch (IOException e) {
+        //    Log.d("IOException", "onStop writer");
+        //}
     }
 
     @Override
@@ -110,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
 
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
         for(CalendarEvent ce : getSampleEventList()) {
+            eventList.add(ce);
             bars.add(new BarControl(ce, tl));
         }
-       // updateBars(tl);
 
         Button addButton = (Button) findViewById(R.id.addEventButton);
         assert addButton != null;
@@ -124,7 +118,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button calButton = (Button) findViewById(R.id.calendarButton);
-        //calButton.setOnClickListener.... but I haven't written that activity yet
+        assert calButton != null;
+        calButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ListEventsActivity.class);
+                intent.putParcelableArrayListExtra("eventList", eventList);
+                startActivity(intent);
+            }
+        });
     }
 
     private void updateBars(TableLayout tl) {
@@ -136,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 current.update(tl);
             }
-
         }
     }
 

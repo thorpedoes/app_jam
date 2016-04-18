@@ -3,6 +3,7 @@ package appjam.scheduler;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,13 +21,24 @@ public class ListEventsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_events);
-        m_eventList = (ArrayList<CalendarEvent>) getIntent().getSerializableExtra("Events");
-        addEvents();
+        //m_eventList;// =  getIntent().getBundleExtra("Events").getParcelableArrayList("EventsList");
+        //Log.v("EVENTSLIST", Integer.toString(m_eventList.size()));
+        m_eventList = (ArrayList<CalendarEvent>)this.getIntent().getSerializableExtra("eventList");
+        if(m_eventList != null) {
+            Log.v("EVENTLIST", "Before adding: " + Integer.toString(m_eventList.size()));
+            addEvents();
+            Log.v("EVENTLIST", "HOLY SHIT IT WORKED");
+        } else {
+            Log.v("EVENTLIST", "M_EVENTLIST IS NULL");
+        }
     }
 
     private void addEvents() {
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
+        assert tl != null;
+        Log.v("EVENTLIST", Integer.toString(m_eventList.size()));
         for(CalendarEvent ce : m_eventList) {
+            Log.v("EVENTLIST", "ADD AN EVENT");
             TableRow row = new TableRow(tl.getContext());
             LinearLayout ll = new LinearLayout(row.getContext());
 
@@ -51,6 +63,7 @@ public class ListEventsActivity extends AppCompatActivity {
             row.addView(ll);
 
             tl.addView(row);
+            Log.v("EVENTLIST", "FINISH ADDING ONE!");
         }
     }
 
