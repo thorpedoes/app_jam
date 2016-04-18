@@ -94,9 +94,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<CalendarEvent> getSampleEventList() {
         ArrayList<CalendarEvent> result = new ArrayList<>();
-        EventInfo testInfo = new EventInfo(1, 2, 3, 1, 2, 0, 2);
-        CalendarEvent testCE = new CalendarEvent("Test", "Something", testInfo, false, 0, "cool music");
-        CalendarEvent testCE1 = new CalendarEvent("Whatever", "SomethingElse", testInfo, false, 0, "cool music");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2016);
+        cal.set(Calendar.MONTH, Calendar.JULY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        CalendarEvent testCE = new CalendarEvent("Test", cal, cal, "cool music");
+        CalendarEvent testCE1 = new CalendarEvent("Whatever", cal, cal, "cool music");
         result.add(testCE);
         result.add(testCE1);
         return result;

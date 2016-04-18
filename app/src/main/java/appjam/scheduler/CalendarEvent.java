@@ -22,9 +22,8 @@ public class CalendarEvent implements Parcelable {
     };
 
     private String title;
-    private Calendar cal;
-    private int durHours;
-    private int durMintues;
+    private Calendar startTime;
+    private Calendar endTime;
     private String alrmSound;
 
     public int describeContents() {
@@ -40,6 +39,13 @@ public class CalendarEvent implements Parcelable {
     // Constructors
     public CalendarEvent() {}
 
+    public CalendarEvent(String eventTitle, Calendar start, Calendar end, String sound) {
+        title = eventTitle;
+        startTime = start;
+        endTime = end;
+        alrmSound = sound;
+    }
+
     public CalendarEvent(Parcel in) {
         title = in.readString();
 
@@ -48,15 +54,13 @@ public class CalendarEvent implements Parcelable {
 
     // Getters
     public String getTitle() { return title; }
-    public Calendar getEventTime() { return cal; }
-    public int getHours() { return hoursLong; }
-    public int getMinutes() {}
+    public Calendar getStartTime() { return startTime; }
+    public Calendar getEndTime() { return endTime; }
     public String getAlrmSound() { return alrmSound; }
 
     // Setters
     public void setTitle(String newTitle) { title = newTitle; }
-    public void setEventTime(Calendar newCal) { cal = newCal; }
-    public void setHours(int durHours) { hoursLong = durHours; }
-    public void setMinutes(int durMinutes) { minutesLong = durMinutes; }
+    public void setStartTime(Calendar startCal) { startTime = startCal; }
+    public void setEndTime(Calendar endCal) { endTime = endCal; }
     public void setAlrmSound(String newSound) { alrmSound = newSound; }
 }
