@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class EventWriter {
     private File dir;
@@ -36,10 +37,16 @@ public class EventWriter {
 
     public void writeToFile() throws IOException {
         for (CalendarEvent ce : eventList) {
-            writer.write(ce.getTitle() + ";");
+            writer.write(ce.getTitle() + ';');
+            writeEventTime(ce.getStartTime());
+            writeEventTime(ce.getEndTime());
             writer.write(ce.getAlrmSound() + ";\n");
             writer.flush();
         }
         writer.close();
+    }
+
+    public void writeEventTime(Calendar cal) {
+
     }
 }
