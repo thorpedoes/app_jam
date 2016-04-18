@@ -111,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.health_bar_screen);
 
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
-        for(CalendarEvent ce : getSampleEventList()) {
-            eventList.add(ce);
+        for(CalendarEvent ce : eventList) {
+            //eventList.add(ce);
             bars.add(new BarControl(ce, tl));
         }
 

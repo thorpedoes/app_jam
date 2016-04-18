@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -18,16 +17,17 @@ public class ListEventsActivity extends AppCompatActivity {
     private ArrayList<CalendarEvent> m_eventList;
 
     @Override
+    @SuppressWarnings("unchecked")
+    // in line 25, m_eventList = ...getSerializableExtra(), get an unchecked warning, safe to suppress
+    // as we know that the only seralizable we put in the Intent was the ArrayList<ce>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_events);
-        //m_eventList;// =  getIntent().getBundleExtra("Events").getParcelableArrayList("EventsList");
-        //Log.v("EVENTSLIST", Integer.toString(m_eventList.size()));
+
         m_eventList = (ArrayList<CalendarEvent>)this.getIntent().getSerializableExtra("eventList");
+
         if(m_eventList != null) {
-            Log.v("EVENTLIST", "Before adding: " + Integer.toString(m_eventList.size()));
             addEvents();
-            Log.v("EVENTLIST", "HOLY SHIT IT WORKED");
         } else {
             Log.v("EVENTLIST", "M_EVENTLIST IS NULL");
         }
@@ -46,8 +46,8 @@ public class ListEventsActivity extends AppCompatActivity {
             TextView startTimeText = new TextView(ll.getContext());
             TextView endTimeText =   new TextView(ll.getContext());
             titleText.setText(ce.getTitle());
-            startTimeText.setText("1:00 PM"); // don't hardcode later
-            endTimeText.setText("2:00 PM");
+            startTimeText.setText(String.format("%d:00 PM", 1)); // don't hardcode later
+            endTimeText.setText(String.format("%d:00 PM", 2));
 
             LinearLayout.LayoutParams match = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             ll.setOrientation(LinearLayout.VERTICAL);
