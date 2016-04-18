@@ -43,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        reader = new EventReader();
-        try {
-            eventList = reader.readFromFile();
-            Log.d("EVENTREADER", "read");
-        } catch (IOException e) {
-            Log.d("IOException", "reader main");
-            e.printStackTrace();
-        }
+        //reader = new EventReader();
+        //try {
+        //    eventList = reader.readFromFile();
+        //    Log.d("EVENTREADER", "read");
+        //} catch (IOException e) {
+        //    Log.d("IOException", "reader main");
+        //    e.printStackTrace();
+        //}
         showHealthBarScreen();
         //m_StatusChecker.run();
     }

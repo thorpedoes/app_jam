@@ -95,9 +95,6 @@ public class BarControl {
         int startX = 0;
         int startY = 0;
         int width = (int) (src.getWidth()* percentFull);
-        Log.v("Width", Integer.toString(src.getWidth()));
-        Log.v("Cropped width", Integer.toString(width));
-        Log.v("Perc", Double.toString(percentFull));
         int height = m_barImg.getHeight();
         Bitmap cropped = Bitmap.createBitmap(src, startX, startY, width, height, null, false);
 
