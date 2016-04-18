@@ -51,9 +51,6 @@ public class EventReader {
 
     private CalendarEvent makeEvent(String[] tokens) {
         CalendarEvent newEvent = new CalendarEvent();
-
-
-
         return newEvent;
     }
 }
