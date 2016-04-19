@@ -5,4 +5,8 @@ package appjam.scheduler;
  */
 public class EndBeforeStartException extends Exception {
     public EndBeforeStartException() {}
+
+    public EndBeforeStartException(String msg) {
+        super(msg);
+    }
 }
