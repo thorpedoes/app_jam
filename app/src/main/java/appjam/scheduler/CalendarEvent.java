@@ -6,7 +6,6 @@ package appjam.scheduler;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.Calendar;
 
@@ -32,7 +31,8 @@ public class CalendarEvent implements Parcelable {
 
     public void writeToParcel(Parcel out, int ignored) {
         out.writeString(title);
-
+        out.writeLong(startTime.getTimeInMillis());
+        out.writeLong(endTime.getTimeInMillis());
         out.writeString(alrmSound);
     }
 
@@ -48,7 +48,10 @@ public class CalendarEvent implements Parcelable {
 
     public CalendarEvent(Parcel in) {
         title = in.readString();
-
+        startTime = Calendar.getInstance();
+        startTime.setTimeInMillis(in.readLong());
+        endTime = Calendar.getInstance();
+        endTime.setTimeInMillis(in.readLong());
         alrmSound = in.readString();
     }
 

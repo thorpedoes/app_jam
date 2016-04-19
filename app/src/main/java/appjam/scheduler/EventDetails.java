@@ -27,7 +27,7 @@ public class EventDetails extends AppCompatActivity {
         return new View.OnClickListener() {
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
-               finish();
+                finish();
             }
         };
     }
@@ -35,10 +35,23 @@ public class EventDetails extends AppCompatActivity {
     private View.OnClickListener getSaveListener() {
         return new View.OnClickListener() {
             public void onClick(View v) {
-                Intent resultData = new Intent();
-                setResult(RESULT_OK, resultData);
-                finish();
+                if(validEventEntered()) {
+                    Intent resultData = new Intent();
+                    resultData.putExtra("New event", getEnteredEvent());
+                    setResult(RESULT_OK, resultData);
+                    finish();
+                }
             }
         };
     }
+
+    private boolean validEventEntered() {
+        return true;
+    }
+
+    private CalendarEvent getEnteredEvent() {
+        CalendarEvent result = new CalendarEvent();
+        return result;
+    }
+
 }
