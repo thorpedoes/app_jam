@@ -6,6 +6,7 @@
 
 package appjam.scheduler;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
@@ -23,14 +24,20 @@ public class EventReader {
     private File dir;
     private FileReader reader;
     private BufferedReader buffer;
-    private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/apj_scheduler";
+    //private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/apj_scheduler";
+    private String path;
+    private String filename = "events.txt";
+    private String dirname = "/apj_scheduler";
 
-    public EventReader()
+    public EventReader(Context context)
     {
-        dir = new File(path);
-        if (!dir.exists()) dir.mkdir();
+        //path = context.
+        File mainDir = context.getFilesDir();
+        //String dirPath = mainDir.getPath() + dirname;
+        //dir = new File(dirPath);
+        //if (!dir.exists()) dir.mkdir();
 
-        inFile = new File(dir, "events.txt");
+        inFile = new File(mainDir, filename);
         if (inFile.exists()) {
             try {
                 reader = new FileReader(inFile);

@@ -2,10 +2,8 @@ package appjam.scheduler;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -36,6 +34,8 @@ public class BarControl {
     }
 
     public void update(TableLayout tl) {
+        currentPerc = findPercentFull();
+        //Log.v("CurrentPerc", Double.toString(currentPerc));
         if(currentPerc > 0.0) {
             TableRow row = new TableRow(tl.getContext());
             LinearLayout ll = new LinearLayout(row.getContext());
@@ -56,8 +56,8 @@ public class BarControl {
     }
 
     public boolean finished() {
-        // hacky, later use ce more correctly
-        return currentPerc <= .01;
+        Calendar current = Calendar.getInstance();
+        return current.after(m_ce.getEndTime());
     }
 
     private void drawInitial(TableLayout tl) {
@@ -66,7 +66,7 @@ public class BarControl {
         ll.setOrientation(LinearLayout.HORIZONTAL);
 
         ll.addView(getIconOfEvent(ll.getContext()));
-        ll.addView(m_barImg);//getBarOfEvent(ll.getContext()));
+        ll.addView(m_barImg);
 
         row.addView(ll);
         row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
@@ -75,12 +75,14 @@ public class BarControl {
     }
 
     private double findPercentFull() {
-        Calendar c = Calendar.getInstance();
-        DateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date currentDateTime = new Date();
-        // do stuff with m_ce, for now: hacky stuff
-        currentPerc -= .01;
-        return currentPerc;
+        Calendar current = Calendar.getInstance();
+        long duration = m_ce.getEndTime().getTimeInMillis() - m_ce.getStartTime().getTimeInMillis();
+        if(duration == 0) {
+            return 0.0;
+        } else {
+            long timeElapsed = current.getTimeInMillis() - m_ce.getStartTime().getTimeInMillis();
+            return 1 - ((double)timeElapsed/duration);
+        }
     }
 
    private void setBarPadding(ImageView image, Context context) {

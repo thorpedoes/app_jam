@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        reader = new EventReader();
+        reader = new EventReader(getApplicationContext());
         try {
             eventList = reader.readFromFile();
             Log.d("EVENTREADER", "read");
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        Log.d("Size", Integer.toString(eventList.size()));
         for (CalendarEvent ce : eventList) {
             ce.printEventInfo();
         }
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        writer = new EventWriter(getSampleEventList());
+        writer = new EventWriter(getApplicationContext(), getSampleEventList());
         try {
             writer.writeToFile();
             Log.d("EVENTWRTIER", "onPause");
@@ -70,17 +72,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        writer = new EventWriter(getSampleEventList());
-        try {
-            writer.writeToFile();
-            Log.d("EVENTWRTIER", "onStop");
-        } catch (IOException e) {
-            Log.d("IOException", "onStop writer");
-        }
-    }
+    //@Override
+    //protected void onStop() {
+    //    super.onStop();
+    //    writer = new EventWriter(getSampleEventList());
+    //    try {
+    //        writer.writeToFile();
+    //        Log.d("EVENTWRTIER", "onStop");
+    //    } catch (IOException e) {
+    //        Log.d("IOException", "onStop writer");
+    //    }
+    //}
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -92,12 +94,19 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<CalendarEvent> result = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2016);
-        cal.set(Calendar.MONTH, Calendar.JULY);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        cal.set(Calendar.HOUR_OF_DAY, 22);
+        cal.set(Calendar.MONTH, Calendar.APRIL);
+        cal.set(Calendar.DAY_OF_MONTH, 19);
+        cal.set(Calendar.HOUR_OF_DAY, 11);
         cal.set(Calendar.MINUTE, 30);
-        CalendarEvent testCE = new CalendarEvent("Test", cal, cal, "cool music");
-        CalendarEvent testCE1 = new CalendarEvent("Whatever", cal, cal, "cool music");
+        Calendar end = Calendar.getInstance();
+        end.set(Calendar.YEAR, 2016);
+        end.set(Calendar.MONTH, Calendar.APRIL);
+        end.set(Calendar.DAY_OF_MONTH, 19);
+        end.set(Calendar.HOUR_OF_DAY, 13);
+        end.set(Calendar.MINUTE, 30);
+
+        CalendarEvent testCE = new CalendarEvent("Test", cal, end, "cool music");
+        CalendarEvent testCE1 = new CalendarEvent("Whatever", cal, end, "cool music");
         result.add(testCE);
         result.add(testCE1);
         return result;
@@ -141,6 +150,11 @@ public class MainActivity extends AppCompatActivity {
                 current.update(tl);
             }
         }
+    }
+
+    private String getTimeString(CalendarEvent ce) {
+        SimpleDateFormat formatter = new SimpleDateFormat("DD-MM-yyyy");
+        return formatter.format(ce.getStartTime());
     }
 
 }
