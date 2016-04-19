@@ -28,17 +28,13 @@ public class ListEventsActivity extends AppCompatActivity {
 
         if(m_eventList != null) {
             addEvents();
-        } else {
-            Log.v("EVENTLIST", "M_EVENTLIST IS NULL");
         }
     }
 
     private void addEvents() {
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
         assert tl != null;
-        Log.v("EVENTLIST", Integer.toString(m_eventList.size()));
         for(CalendarEvent ce : m_eventList) {
-            Log.v("EVENTLIST", "ADD AN EVENT");
             TableRow row = new TableRow(tl.getContext());
             LinearLayout ll = new LinearLayout(row.getContext());
 
@@ -63,7 +59,6 @@ public class ListEventsActivity extends AppCompatActivity {
             row.addView(ll);
 
             tl.addView(row);
-            Log.v("EVENTLIST", "FINISH ADDING ONE!");
         }
     }
 

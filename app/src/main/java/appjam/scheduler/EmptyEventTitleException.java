@@ -5,4 +5,8 @@ package appjam.scheduler;
 
 public class EmptyEventTitleException extends Exception {
     public EmptyEventTitleException() {}
+
+    public EmptyEventTitleException(String msg) {
+        super(msg);
+    }
 }

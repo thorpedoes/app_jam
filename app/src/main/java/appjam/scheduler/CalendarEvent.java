@@ -68,10 +68,10 @@ public class CalendarEvent implements Parcelable {
     public void setAlrmSound(String newSound) { alrmSound = newSound; }
 
     public boolean validEvent() throws EndBeforeStartException, BeforeTodayException, EmptyEventTitleException {
-        if (title.isEmpty()) throw new EmptyEventTitleException();
-        if (endTime.before(startTime)) throw new EndBeforeStartException();
+        if (title.isEmpty()) throw new EmptyEventTitleException("Can't have an empty event title");
+        if (endTime.before(startTime)) throw new EndBeforeStartException("End date must be after start date");
         Calendar current = Calendar.getInstance();
-        if (startTime.before(current) || endTime.before(current)) throw new BeforeTodayException();
+        if (startTime.before(current) || endTime.before(current)) throw new BeforeTodayException("Event must start after current date");
 
         return true;
     }

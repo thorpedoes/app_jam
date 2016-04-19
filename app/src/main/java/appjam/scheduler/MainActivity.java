@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.TableLayout;
 
 import java.io.IOException;
-import java.util.Date;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -26,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private EventReader reader;
     private EventWriter writer;
 
+    public static int GET_EVENT = 0;
+
     Runnable m_StatusChecker = new Runnable() {
         @Override
         public void run() {
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //eventList = getSampleEventList();
         reader = new EventReader();
         try {
             eventList = reader.readFromFile();
@@ -51,17 +50,14 @@ public class MainActivity extends AppCompatActivity {
         for (CalendarEvent ce : eventList) {
             ce.printEventInfo();
         }
-
         showHealthBarScreen();
     }
 
     @Override
     public void onWindowFocusChanged(boolean focus) {
         super.onWindowFocusChanged(focus);
-        //updateBars((TableLayout) findViewById(R.id.tableLayout));
         m_StatusChecker.run();
     }
-    // on destroy pass ArrayLis to reader
     @Override
     protected void onPause() {
         super.onPause();
@@ -88,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && requestCode == GET_EVENT) {
         }
     }
 
@@ -112,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
         for(CalendarEvent ce : eventList) {
-            //eventList.add(ce);
             bars.add(new BarControl(ce, tl));
         }
 
@@ -121,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EventDetails.class);
-                startActivity(intent);
+                startActivityForResult(intent, GET_EVENT);
             }
         });
 
@@ -149,4 +144,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-

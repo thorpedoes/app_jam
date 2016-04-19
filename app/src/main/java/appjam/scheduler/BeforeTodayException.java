@@ -5,4 +5,8 @@ package appjam.scheduler;
  */
 public class BeforeTodayException extends Exception {
     public BeforeTodayException() {}
+
+    public BeforeTodayException(String msg) {
+        super(msg);
+    }
 }
