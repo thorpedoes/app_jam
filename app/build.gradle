@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "appjam.scheduler"
-        minSdkVersion 21
-        targetSdkVersion 23
+        minSdkVersion 15
+        targetSdkVersion 20
         versionCode 1
         versionName "1.0"
     }

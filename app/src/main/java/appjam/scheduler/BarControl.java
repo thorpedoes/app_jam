@@ -60,6 +60,10 @@ public class BarControl {
         return current.after(m_ce.getEndTime());
     }
 
+    public CalendarEvent getEvent() {
+        return m_ce;
+    }
+
     private void drawInitial(TableLayout tl) {
         TableRow row = new TableRow(tl.getContext());
         LinearLayout ll = new LinearLayout(row.getContext());
@@ -81,9 +85,6 @@ public class BarControl {
             return 0.0;
         } else {
             long timeElapsed = current.getTimeInMillis() - m_ce.getStartTime().getTimeInMillis();
-            Log.v("duration", Long.toString(duration));
-            Log.v("Time elapsed", Long.toString(timeElapsed));
-            Log.v("TE perc", Double.toString((double)timeElapsed/duration));
             return 1 - ((double)timeElapsed/duration);
         }
     }

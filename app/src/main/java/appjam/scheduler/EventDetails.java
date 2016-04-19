@@ -39,7 +39,7 @@ public class EventDetails extends AppCompatActivity {
             public void onClick(View v) {
                 if(validEventEntered()) {
                     Intent resultData = new Intent();
-                    resultData.putExtra("New event", getEnteredEvent());
+                    resultData.putExtra("newEvent", getEnteredEvent());
                     setResult(RESULT_OK, resultData);
                     finish();
                 }

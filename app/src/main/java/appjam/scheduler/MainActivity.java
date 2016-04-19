@@ -1,10 +1,16 @@
 package appjam.scheduler;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -75,8 +81,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == GET_EVENT) {
-            // add event to the list
-            //data.getExtra(...);
+            eventList.add((CalendarEvent)data.getParcelableExtra("newEvent"));
         }
         if(resultCode == RESULT_OK) {
             m_StatusChecker.run();
@@ -95,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
         end.set(Calendar.YEAR, 2016);
         end.set(Calendar.MONTH, Calendar.APRIL);
         end.set(Calendar.DAY_OF_MONTH, 19);
-        end.set(Calendar.HOUR_OF_DAY, 15);
+        end.set(Calendar.HOUR_OF_DAY, 14);
+        end.set(Calendar.MINUTE, 52);
 
         CalendarEvent testCE = new CalendarEvent("Test", cal, end, "cool music");
         CalendarEvent testCE1 = new CalendarEvent("Whatever", cal, end, "cool music");
@@ -137,11 +143,27 @@ public class MainActivity extends AppCompatActivity {
         for(Iterator<BarControl> it = bars.iterator(); it.hasNext();) {
             BarControl current = it.next();
             if(current.finished()) {
+                notifyFinished(current.getEvent());
                 it.remove();
             } else {
                 current.update(tl);
             }
         }
+    }
+
+    private void notifyFinished(CalendarEvent ce) {
+       NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setContentTitle("Event finished");
+        mBuilder.setContentText(String.format("\"%s\" just finished", ce.getTitle()));
+        Intent resultActivity = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultActivity);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, mBuilder.build());
     }
 
     private String getTimeString(CalendarEvent ce) {

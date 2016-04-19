@@ -24,18 +24,13 @@ public class EventReader {
     private File dir;
     private FileReader reader;
     private BufferedReader buffer;
-    //private String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/apj_scheduler";
     private String path;
     private String filename = "events.txt";
     private String dirname = "/apj_scheduler";
 
     public EventReader(Context context)
     {
-        //path = context.
         File mainDir = context.getFilesDir();
-        //String dirPath = mainDir.getPath() + dirname;
-        //dir = new File(dirPath);
-        //if (!dir.exists()) dir.mkdir();
 
         inFile = new File(mainDir, filename);
         if (inFile.exists()) {
@@ -57,7 +52,14 @@ public class EventReader {
             String line = null;
             while ((line = buffer.readLine()) != null) {
                 String[] tokens = line.split(";");
-                eventList.add(makeEvent(tokens));
+                try {
+                    CalendarEvent event = makeEvent(tokens);
+                    if (event.validEvent()) {
+                        eventList.add(makeEvent(tokens));
+                    }
+                } catch (BeforeTodayException | EmptyEventTitleException | EndBeforeStartException e) {
+                    Log.v("Invalid event", String.format("%s : invalid, nothing added", tokens));
+                }
             }
             buffer.close();
         }
