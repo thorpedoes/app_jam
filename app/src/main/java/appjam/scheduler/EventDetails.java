@@ -68,5 +68,6 @@ public class EventDetails extends AppCompatActivity {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, msg, duration);
+        toast.show();
     }
 }
