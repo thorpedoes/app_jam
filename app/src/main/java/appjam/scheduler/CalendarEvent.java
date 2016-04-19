@@ -64,6 +64,16 @@ public class CalendarEvent implements Parcelable {
     public void setEndTime(Calendar endCal) { endTime = endCal; }
     public void setAlrmSound(String newSound) { alrmSound = newSound; }
 
+    public boolean validEvent() throws EndBeforeStartException, BeforeTodayException, EmptyEventTitleException {
+        if (title.isEmpty()) throw new EmptyEventTitleException();
+        if (endTime.before(startTime)) throw new EndBeforeStartException();
+        Calendar current = Calendar.getInstance();
+        if (startTime.before(current) || endTime.before(current)) throw new BeforeTodayException();
+
+        return true;
+    }
+
+    // For debugging
     public void printEventInfo() {
         System.out.print(title + " | ");
         System.out.print(Integer.toString(startTime.get(Calendar.DAY_OF_MONTH)) + ' ');
