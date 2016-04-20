@@ -58,7 +58,9 @@ public class EventDetails extends AppCompatActivity {
 
         hour = cal.get(Calendar.HOUR_OF_DAY);
         minute = cal.get(Calendar.MINUTE);
-        timeString = Integer.toString(hour) + ":" + Integer.toString(minute);
+        if (hour == 0) timeString = Integer.toString(hour + 12) + ":" + Integer.toString(minute) + " AM";
+        else if (hour >= 12) timeString = Integer.toString(hour - 12) + ":" + Integer.toString(minute) + " PM";
+        else timeString = Integer.toString(hour) + ":" + Integer.toString(minute) + " AM";
 
         return timeString;
     }
