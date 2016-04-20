@@ -53,17 +53,7 @@
         android:layout_alignLeft="@+id/nameText"
         android:layout_alignStart="@+id/nameText" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Duration:"
-        android:id="@+id/durationText"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
+ <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nameEntry"
@@ -77,35 +67,66 @@
         android:layout_alignLeft="@+id/saveButton"
         android:layout_alignStart="@+id/saveButton" />
 
-    <TimePicker
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:timePickerMode="spinner"
-        android:id="@+id/timePicker"
-        android:layout_alignTop="@+id/startTimeText"
-        android:layout_alignParentRight="true"
+        android:text="Date"
+        android:id="@+id/startDateButton"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/startTimeText"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/startTimeText"
+        android:onClick="showDatePickerDialog" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:id="@+id/startTimeButton"
+        android:layout_below="@+id/startDateButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:layout_alignEnd="@+id/startDateButton"
+        android:onClick="showTimePickerDialog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="End Time:"
+        android:id="@+id/textView"
+        android:layout_above="@+id/startDateButton"
+        android:layout_alignEnd="@+id/saveButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:id="@+id/endDateButton"
+        android:layout_alignTop="@+id/startDateButton"
+        android:layout_alignStart="@+id/textView"
+        android:onClick="showDatePickerDialog"
         android:layout_alignParentEnd="true" />
 
-    <EditText
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="5"
-        android:maxEms="5"
-        android:id="@+id/minuteField"
-        android:layout_alignTop="@+id/hourField"
-        android:layout_alignRight="@+id/timePicker"
-        android:layout_alignEnd="@+id/timePicker" />
+        android:text="Time"
+        android:id="@+id/endTimeButton"
+        android:layout_above="@+id/textView2"
+        android:layout_alignStart="@+id/endDateButton"
+        android:onClick="showTimePickerDialog"
+        android:layout_alignParentEnd="true" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="3"
-        android:maxEms="3"
-        android:id="@+id/hourField"
-        android:layout_alignTop="@+id/durationText"
-        android:layout_toLeftOf="@+id/minuteField"
-        android:layout_toStartOf="@+id/minuteField" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Icon:"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/startTimeButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp" />
+
 
 </RelativeLayout>
