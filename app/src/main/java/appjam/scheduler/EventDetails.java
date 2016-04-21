@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class EventDetails extends AppCompatActivity {
@@ -59,28 +60,13 @@ public class EventDetails extends AppCompatActivity {
     }
 
     private String calendarDate(Calendar cal) {
-        int month, day, year;
-        String dateString = null;
-
-        month = cal.get(Calendar.MONTH);
-        day = cal.get(Calendar.DAY_OF_MONTH);
-        year = cal.get(Calendar.YEAR);
-        dateString = Integer.toString(month + 1) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
-
-        return dateString;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
+        return dateFormat.format(cal.getTime());
     }
 
     private String calendarTime(Calendar cal) {
-        int hour, minute;
-        String timeString = null;
-
-        hour = cal.get(Calendar.HOUR_OF_DAY);
-        minute = cal.get(Calendar.MINUTE);
-        if (hour == 0) timeString = Integer.toString(hour + 12) + ":" + Integer.toString(minute) + " AM";
-        else if (hour >= 12) timeString = Integer.toString(hour - 11) + ":" + Integer.toString(minute) + " PM";
-        else timeString = Integer.toString(hour) + ":" + Integer.toString(minute) + " AM";
-
-        return timeString;
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        return timeFormat.format(cal.getTime());
     }
 
     private View.OnClickListener getExitListener() {
@@ -228,15 +214,8 @@ public class EventDetails extends AppCompatActivity {
         }
 
         private String calendarDate(Calendar cal) {
-            int month, day, year;
-            String dateString = null;
-
-            month = cal.get(Calendar.MONTH);
-            day = cal.get(Calendar.DAY_OF_MONTH);
-            year = cal.get(Calendar.YEAR);
-            dateString = Integer.toString(month + 1) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
-
-            return dateString;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
+            return dateFormat.format(cal.getTime());
         }
     }
 
@@ -305,16 +284,8 @@ public class EventDetails extends AppCompatActivity {
         }
 
         private String calendarTime(Calendar cal) {
-            int hour, minute;
-            String timeString = null;
-
-            hour = cal.get(Calendar.HOUR_OF_DAY);
-            minute = cal.get(Calendar.MINUTE);
-            if (hour == 0) timeString = Integer.toString(hour + 12) + ":" + Integer.toString(minute) + " AM";
-            else if (hour >= 12) timeString = Integer.toString(hour - 11) + ":" + Integer.toString(minute) + " PM";
-            else timeString = Integer.toString(hour) + ":" + Integer.toString(minute) + " AM";
-
-            return timeString;
+            SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+            return timeFormat.format(cal.getTime());
         }
     }
 
