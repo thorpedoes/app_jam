@@ -3,6 +3,7 @@ package appjam.scheduler;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -14,15 +15,14 @@ public class BarControl {
     private CalendarEvent m_ce;
     private double currentPerc = 1.0;
     private ImageView m_barImg;
-    private TableLayout m_parent;
+    private boolean m_finished = false;
 
     public BarControl(CalendarEvent ce, TableLayout tl) {
         m_ce = ce;
-        m_parent = tl;
         m_barImg = new ImageView(tl.getContext());
         m_barImg.setImageResource(R.drawable.hb1);
         m_barImg.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
-        drawInitial(tl);
+        update(tl, true);
     }
 
     public ImageView getFullImage() {
@@ -30,6 +30,10 @@ public class BarControl {
     }
 
     public void update(TableLayout tl) {
+        update(tl, false);
+    }
+
+    public void update(TableLayout tl, boolean initial) {
         currentPerc = findPercentFull();
         if(currentPerc > 0.01) {
             TableRow row = new TableRow(tl.getContext());
@@ -37,7 +41,12 @@ public class BarControl {
             ll.setOrientation(LinearLayout.HORIZONTAL);
 
             ll.addView(getIconOfEvent(ll.getContext()));
-            ll.addView(getBarOfEvent(ll.getContext()));
+            if(!initial)
+                ll.addView(getBarOfEvent(ll.getContext()));
+            else
+                ll.addView(m_barImg);
+
+            ll.addView(getXOfEvent(ll.getContext()));
 
             row.addView(ll);
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
@@ -47,30 +56,18 @@ public class BarControl {
             row.setPadding(pad, pad, 0, 0);
 
             tl.addView(row);
+        } else {
+            m_finished = true;
         }
     }
 
     public boolean finished() {
         Calendar current = Calendar.getInstance();
-        return current.after(m_ce.getEndTime());
+        return current.after(m_ce.getEndTime()) || m_finished;
     }
 
     public CalendarEvent getEvent() {
         return m_ce;
-    }
-
-    private void drawInitial(TableLayout tl) {
-        TableRow row = new TableRow(tl.getContext());
-        LinearLayout ll = new LinearLayout(row.getContext());
-        ll.setOrientation(LinearLayout.HORIZONTAL);
-
-        ll.addView(getIconOfEvent(ll.getContext()));
-        ll.addView(m_barImg);
-
-        row.addView(ll);
-        row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-        setBarPadding(m_barImg, tl.getContext());
-        tl.addView(row);
     }
 
     private double findPercentFull() {
@@ -115,4 +112,18 @@ public class BarControl {
         result.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
         return result;
     }
+
+    private ImageView getXOfEvent(Context context) {
+        ImageView result = new ImageView(context);
+        result.setImageResource(R.drawable.square); // set it to the right shit
+        result.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+        result.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                m_finished = true;
+            }
+        });
+        return result;
+    }
+
 }
