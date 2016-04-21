@@ -7,6 +7,7 @@ package appjam.scheduler;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class CalendarEvent implements Parcelable {
@@ -23,7 +24,7 @@ public class CalendarEvent implements Parcelable {
     private String title;
     private Calendar startTime;
     private Calendar endTime;
-    private String alrmSound;
+    private String icon;
 
     public int describeContents() {
         return 0;
@@ -33,17 +34,17 @@ public class CalendarEvent implements Parcelable {
         out.writeString(title);
         out.writeLong(startTime.getTimeInMillis());
         out.writeLong(endTime.getTimeInMillis());
-        out.writeString(alrmSound);
+        out.writeString(icon);
     }
 
     // Constructors
     public CalendarEvent() {}
 
-    public CalendarEvent(String eventTitle, Calendar start, Calendar end, String sound) {
+    public CalendarEvent(String eventTitle, Calendar start, Calendar end, String pic) {
         title = eventTitle;
         startTime = start;
         endTime = end;
-        alrmSound = sound;
+        icon = pic;
     }
 
     public CalendarEvent(Parcel in) {
@@ -52,20 +53,20 @@ public class CalendarEvent implements Parcelable {
         startTime.setTimeInMillis(in.readLong());
         endTime = Calendar.getInstance();
         endTime.setTimeInMillis(in.readLong());
-        alrmSound = in.readString();
+        icon = in.readString();
     }
 
     // Getters
     public String getTitle() { return title; }
     public Calendar getStartTime() { return startTime; }
     public Calendar getEndTime() { return endTime; }
-    public String getAlrmSound() { return alrmSound; }
+    public String getIcon() { return icon; }
 
     // Setters
     public void setTitle(String newTitle) { title = newTitle; }
     public void setStartTime(Calendar startCal) { startTime = startCal; }
     public void setEndTime(Calendar endCal) { endTime = endCal; }
-    public void setAlrmSound(String newSound) { alrmSound = newSound; }
+    public void setIcon(String newSound) { icon = newSound; }
 
     public boolean validEvent() throws EndBeforeStartException, BeforeTodayException, EmptyEventTitleException {
         if (title.isEmpty()) throw new EmptyEventTitleException("Can't have an empty event title");
@@ -78,17 +79,10 @@ public class CalendarEvent implements Parcelable {
 
     // For debugging
     public void printEventInfo() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy h:mm a");
         System.out.print(title + " | ");
-        System.out.print(Integer.toString(startTime.get(Calendar.DAY_OF_MONTH)) + ' ');
-        System.out.print(Integer.toString(startTime.get(Calendar.MONTH)) + ' ');
-        System.out.print(Integer.toString(startTime.get(Calendar.YEAR)) + ' ');
-        System.out.print(Integer.toString(startTime.get(Calendar.HOUR_OF_DAY)) + ':');
-        System.out.print(Integer.toString(startTime.get(Calendar.MINUTE)) + " | ");
-        System.out.print(Integer.toString(endTime.get(Calendar.DAY_OF_MONTH)) + ' ');
-        System.out.print(Integer.toString(endTime.get(Calendar.MONTH)) + ' ');
-        System.out.print(Integer.toString(endTime.get(Calendar.YEAR)) + ' ');
-        System.out.print(Integer.toString(endTime.get(Calendar.HOUR_OF_DAY)) + ':');
-        System.out.print(Integer.toString(endTime.get(Calendar.MINUTE)) + " | ");
-        System.out.print(alrmSound + '\n');
+        System.out.print(dateFormat.format(startTime.getTime()) + " | ");
+        System.out.print(dateFormat.format(endTime.getTime()) + " | ");
+        System.out.print(icon + '\n');
     }
 }

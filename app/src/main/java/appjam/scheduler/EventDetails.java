@@ -122,7 +122,7 @@ public class EventDetails extends AppCompatActivity {
 
         result.setStartTime(startDateTime);
         result.setEndTime(endDateTime);
-        result.setAlrmSound("WE DONT HAVE ANY");
+        result.setIcon("WE DONT HAVE ANY");
         result.setTitle(title);
         return result;
     }

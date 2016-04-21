@@ -57,8 +57,8 @@ public class EventWriter {
                 currentString += eventTimeToString(ce.getStartTime());
                 //writeEventTime(ce.getEndTime());
                 currentString += eventTimeToString(ce.getEndTime());
-                //writer.write(ce.getAlrmSound() + ";\n");
-                currentString += ce.getAlrmSound() + ";\n";
+                //writer.write(ce.getIcon() + ";\n");
+                currentString += ce.getIcon() + ";\n";
                 writer.write(currentString);
             }
         } catch (IOException e) {

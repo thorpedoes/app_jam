@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        writer = new EventWriter(getApplicationContext(), getSampleEventList());
+        writer = new EventWriter(getApplicationContext(), eventList);
         try {
             writer.writeToFile();
             Log.d("EVENTWRTIER", "onPause");
@@ -101,13 +101,13 @@ public class MainActivity extends AppCompatActivity {
 
         cal.set(Calendar.YEAR, 2016);
         cal.set(Calendar.MONTH, Calendar.APRIL);
-        cal.set(Calendar.DAY_OF_MONTH, 19);
+        cal.set(Calendar.DAY_OF_MONTH, 22);
         cal.set(Calendar.HOUR_OF_DAY, 14);
 
         Calendar end = Calendar.getInstance();
         end.set(Calendar.YEAR, 2016);
         end.set(Calendar.MONTH, Calendar.APRIL);
-        end.set(Calendar.DAY_OF_MONTH, 19);
+        end.set(Calendar.DAY_OF_MONTH, 23);
         end.set(Calendar.HOUR_OF_DAY, 14);
         end.set(Calendar.MINUTE, 52);
 
