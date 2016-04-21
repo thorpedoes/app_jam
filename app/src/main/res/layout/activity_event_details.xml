@@ -52,22 +52,24 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date"
             android:id="@+id/startDateButton"
             android:layout_marginTop="30dp"
             android:layout_below="@+id/startTimeText"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignEnd="@+id/startTimeText"
+            android:layout_alignRight="@+id/startTimeText"
             android:onClick="showDatePickerDialog" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time"
             android:id="@+id/startTimeButton"
             android:layout_below="@+id/startDateButton"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginTop="30dp"
+            android:layout_alignRight="@+id/startDateButton"
             android:layout_alignEnd="@+id/startDateButton"
             android:onClick="showTimePickerDialog" />
 
@@ -78,23 +80,24 @@
             android:text="End Time"
             android:id="@+id/endTimeText"
             android:layout_above="@+id/startDateButton"
-            android:layout_alignEnd="@+id/saveButton" />
+            android:layout_alignEnd="@+id/saveButton"
+            android:layout_alignRight="@+id/saveButton"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date"
             android:id="@+id/endDateButton"
             android:layout_alignTop="@+id/startDateButton"
             android:layout_alignStart="@+id/endTimeText"
+            android:layout_alignLeft="@+id/endTimeText"
             android:layout_alignEnd="@+id/endTimeText"
+            android:layout_alignRight="@+id/endTimeText"
             android:layout_below="@+id/endTimeButton"
             android:onClick="showDatePickerDialog" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time"
             android:id="@+id/endTimeButton"
             android:onClick="showTimePickerDialog"
             android:layout_alignTop="@+id/startTimeButton"
