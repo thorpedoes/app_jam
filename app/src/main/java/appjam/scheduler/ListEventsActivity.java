@@ -42,8 +42,8 @@ public class ListEventsActivity extends AppCompatActivity {
             TextView startTimeText = new TextView(ll.getContext());
             TextView endTimeText =   new TextView(ll.getContext());
             titleText.setText(ce.getTitle());
-            startTimeText.setText(String.format("%d:00 PM", 1)); // don't hardcode later
-            endTimeText.setText(String.format("%d:00 PM", 2));
+            startTimeText.setText(ce.getStartTime().toString()); // don't hardcode later
+            endTimeText.setText(ce.getEndTime().toString());
 
             LinearLayout.LayoutParams match = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             ll.setOrientation(LinearLayout.VERTICAL);

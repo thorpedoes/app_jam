@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean focus) {
         super.onWindowFocusChanged(focus);
+        if(bars.size() != eventList.size())
+            updateBarList();
         m_StatusChecker.run();
     }
     @Override
@@ -81,16 +83,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == GET_EVENT) {
-            eventList.add((CalendarEvent)data.getParcelableExtra("newEvent"));
+            CalendarEvent result = (CalendarEvent)data.getParcelableExtra("newEvent");
+            eventList.add(result);
+            updateBarList();
+            Log.d("ADDING RESULT", "THAT WORKED!! new size: " + Integer.toString(eventList.size()));
+        } else {
+            Log.d("ADDING RESULT", "that was no valid");
         }
         if(resultCode == RESULT_OK) {
-            m_StatusChecker.run();
+            //m_StatusChecker.run();
         }
     }
 
     private ArrayList<CalendarEvent> getSampleEventList() {
         ArrayList<CalendarEvent> result = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
+
         cal.set(Calendar.YEAR, 2016);
         cal.set(Calendar.MONTH, Calendar.APRIL);
         cal.set(Calendar.DAY_OF_MONTH, 19);
@@ -151,8 +159,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void updateBarList() {
+        bars.clear();
+        TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
+        for(CalendarEvent ce : eventList) {
+            bars.add(new BarControl(ce, tl));
+        }
+    }
+
     private void notifyFinished(CalendarEvent ce) {
-       NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.mipmap.ic_launcher);
         mBuilder.setContentTitle("Event finished");
         mBuilder.setContentText(String.format("\"%s\" just finished", ce.getTitle()));

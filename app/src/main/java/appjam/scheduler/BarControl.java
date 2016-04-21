@@ -9,10 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class BarControl {
     private CalendarEvent m_ce;
@@ -35,7 +32,7 @@ public class BarControl {
 
     public void update(TableLayout tl) {
         currentPerc = findPercentFull();
-        //Log.v("CurrentPerc", Double.toString(currentPerc));
+        Log.v("PERC", Double.toString(currentPerc));
         if(currentPerc > 0.0) {
             TableRow row = new TableRow(tl.getContext());
             LinearLayout ll = new LinearLayout(row.getContext());
@@ -81,10 +78,13 @@ public class BarControl {
     private double findPercentFull() {
         Calendar current = Calendar.getInstance();
         long duration = m_ce.getEndTime().getTimeInMillis() - m_ce.getStartTime().getTimeInMillis();
+        long timeElapsed = current.getTimeInMillis() - m_ce.getStartTime().getTimeInMillis();
+
         if(duration == 0) {
             return 0.0;
+        } else if(timeElapsed < 0){
+            return 1;
         } else {
-            long timeElapsed = current.getTimeInMillis() - m_ce.getStartTime().getTimeInMillis();
             return 1 - ((double)timeElapsed/duration);
         }
     }
