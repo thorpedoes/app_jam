@@ -10,7 +10,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,10 +20,10 @@ import java.util.Calendar;
 
 public class EventDetails extends AppCompatActivity {
 
-    private Button startDateButton;// = (Button) findViewById(R.id.startDateButton);
-    private Button endDateButton;// = (Button) findViewById(R.id.endDateButton);
-    private Button startTimeButton;// = (Button) findViewById(R.id.startTimeButton);
-    private Button endTimeButton;// = (Button) findViewById(R.id.endTimeButton);
+    private Button startDateButton;
+    private Button endDateButton;
+    private Button startTimeButton;
+    private Button endTimeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +95,7 @@ public class EventDetails extends AppCompatActivity {
             public void onClick(View v) {
                 if(validEventEntered()) {
                     Intent resultData = new Intent();
-                    resultData.putExtra("New event", getEnteredEvent());
+                    resultData.putExtra("newEvent", getEnteredEvent());
                     setResult(RESULT_OK, resultData);
                     finish();
                 }
@@ -107,7 +106,6 @@ public class EventDetails extends AppCompatActivity {
     public void showDatePickerDialog(View v) {
         DialogFragment newFrag = new DatePickerFragment();
         newFrag.show(getSupportFragmentManager(), "datePicker");
-        //Button sdb = (Button) newFrag.getActivity().findViewById(R.id.startDateButton);
     }
 
     public void showTimePickerDialog(View v) {
@@ -128,9 +126,28 @@ public class EventDetails extends AppCompatActivity {
 
     private CalendarEvent getEnteredEvent() {
         CalendarEvent result = new CalendarEvent();
-        // get and set all fields
-        result.setStartTime(TimePickerFragment.getStart());
+        Calendar startDateTime = getStartDateTime();
+        Calendar endDateTime = getEndDateTime();
+
+        result.setStartTime(startDateTime);
+        result.setEndTime(endDateTime);
         return result;
+    }
+
+    private Calendar getStartDateTime() {
+        Calendar startDate = DatePickerFragment.getStartDate();
+        Calendar startTime = TimePickerFragment.getStartTime();
+        startDate.set(Calendar.HOUR_OF_DAY, startTime.get(Calendar.HOUR_OF_DAY));
+        startDate.set(Calendar.MINUTE, startTime.get(Calendar.MINUTE));
+        return startDate;
+    }
+
+    private Calendar getEndDateTime() {
+        Calendar endDate = DatePickerFragment.getEndDate();
+        Calendar endTime = TimePickerFragment.getEndTime();
+        endDate.set(Calendar.HOUR_OF_DAY, endTime.get(Calendar.HOUR_OF_DAY));
+        endDate.set(Calendar.MINUTE, endTime.get(Calendar.MINUTE));
+        return endDate;
     }
 
     private void makeErrorToast(CharSequence msg) {
@@ -142,6 +159,11 @@ public class EventDetails extends AppCompatActivity {
 
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
+
+        private static Calendar m_selectedStartDate = Calendar.getInstance();
+        private static Calendar m_selectedEndDate = Calendar.getInstance();
+
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstance) {
             final Calendar c = Calendar.getInstance();
@@ -152,15 +174,55 @@ public class EventDetails extends AppCompatActivity {
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
-        public void onDateSet(DatePicker view, int year, int month, int day) {
+        public void onDismiss(DialogInterface dialog) {
+            Button startDateButton = (Button) this.getActivity().findViewById(R.id.startDateButton);
+            Button endDateButton = (Button) this.getActivity().findViewById(R.id.endDateButton);
+            startDateButton.setText(calendarDate(m_selectedStartDate));
+            endDateButton.setText(calendarDate(m_selectedEndDate));
+        }
 
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            switch(view.getId()) {
+                case R.id.startDateButton:
+                    m_selectedStartDate.set(Calendar.YEAR, year);
+                    m_selectedStartDate.set(Calendar.MONTH, month);
+                    m_selectedStartDate.set(Calendar.DAY_OF_MONTH, day);
+                case R.id.endDateButton:
+                    m_selectedEndDate.set(Calendar.YEAR, year);
+                    m_selectedEndDate.set(Calendar.MONTH, month);
+                    m_selectedEndDate.set(Calendar.DAY_OF_MONTH, day);
+            }
+        }
+
+        public static Calendar getStartDate() {
+            return m_selectedStartDate;
+        }
+
+        public static Calendar getEndDate() {
+            return m_selectedEndDate;
+        }
+
+        private String calendarDate(Calendar cal) {
+            int month, day, year;
+            String dateString = null;
+
+            month = cal.get(Calendar.MONTH);
+            day = cal.get(Calendar.DAY_OF_MONTH);
+            year = cal.get(Calendar.YEAR);
+            dateString = Integer.toString(month + 1) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
+
+            return dateString;
         }
     }
 
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
         private static Calendar c = Calendar.getInstance();
+
         private static Calendar m_selectedStartTime = Calendar.getInstance();
+        private static Calendar m_selectedEndTime = Calendar.getInstance();
+        private static Calendar m_selectedStartDate = Calendar.getInstance();
+        private static Calendar m_selectedEndDate = Calendar.getInstance();
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstance) {
@@ -174,28 +236,36 @@ public class EventDetails extends AppCompatActivity {
         @Override
         public void onDismiss(DialogInterface dialog) {
             Button startTimeButton = (Button) this.getActivity().findViewById(R.id.startTimeButton);
+            Button endTimeButton = (Button) this.getActivity().findViewById(R.id.endTimeButton);
             startTimeButton.setText(calendarTime(m_selectedStartTime));
+            endTimeButton.setText(calendarTime(m_selectedEndTime));
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            m_selectedStartTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            m_selectedStartTime.set(Calendar.MINUTE, minute);
+            switch(view.getId()) {
+                case R.id.startTimeButton:
+                    m_selectedStartTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    m_selectedStartTime.set(Calendar.MINUTE, minute);
+                    break;
+                case R.id.endTimeButton:
+                    m_selectedEndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    m_selectedEndTime.set(Calendar.MINUTE, minute);
+                    break;
+            }
         }
 
-        public static Calendar getStart() {
+
+        public static Calendar getStartTime() {
             return m_selectedStartTime;
         }
-
-        private String calendarDate(Calendar cal) {
-            int month, day, year;
-            String dateString = null;
-
-            month = cal.get(Calendar.MONTH);
-            day = cal.get(Calendar.DAY_OF_MONTH);
-            year = cal.get(Calendar.YEAR);
-            dateString = Integer.toString(month + 1) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
-
-            return dateString;
+        public static Calendar getEndTime() {
+            return m_selectedEndTime;
+        }
+        public static Calendar getStartDate() {
+            return m_selectedStartDate;
+        }
+        public static Calendar getEndDate() {
+            return m_selectedEndDate;
         }
 
         private String calendarTime(Calendar cal) {
