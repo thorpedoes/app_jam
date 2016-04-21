@@ -3,7 +3,6 @@ package appjam.scheduler;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -32,7 +31,7 @@ public class BarControl {
 
     public void update(TableLayout tl) {
         currentPerc = findPercentFull();
-        if(currentPerc > 0.0) {
+        if(currentPerc > 0.01) {
             TableRow row = new TableRow(tl.getContext());
             LinearLayout ll = new LinearLayout(row.getContext());
             ll.setOrientation(LinearLayout.HORIZONTAL);
