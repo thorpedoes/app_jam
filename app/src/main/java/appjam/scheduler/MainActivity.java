@@ -65,10 +65,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean focus) {
         super.onWindowFocusChanged(focus);
-        if(bars.size() != eventList.size())
+        if (bars.size() != eventList.size())
             updateBarList();
         m_StatusChecker.run();
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == GET_EVENT) {
-            CalendarEvent result = (CalendarEvent)data.getParcelableExtra("newEvent");
+            CalendarEvent result = (CalendarEvent) data.getParcelableExtra("newEvent");
             eventList.add(result);
             Collections.sort(eventList);
             updateBarList();
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d("ADDING RESULT", "that was no valid");
         }
-        if(resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             //m_StatusChecker.run();
         }
     }
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.health_bar_screen);
 
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
-        for(CalendarEvent ce : eventList) {
+        for (CalendarEvent ce : eventList) {
             bars.add(new BarControl(ce, tl));
         }
 
@@ -150,10 +151,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateBars(TableLayout tl) {
         tl.removeAllViews();
-        for(Iterator<BarControl> it = bars.iterator(); it.hasNext();) {
+        for (Iterator<BarControl> it = bars.iterator(); it.hasNext(); ) {
             BarControl current = it.next();
-            if(current.finished()) {
+            if (current.finished()) {
                 notifyFinished(current.getEvent());
+                eventList.remove(current.getEvent());
                 it.remove();
             } else {
                 current.update(tl);
@@ -164,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateBarList() {
         bars.clear();
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
-        for(CalendarEvent ce : eventList) {
+        for (CalendarEvent ce : eventList) {
             bars.add(new BarControl(ce, tl));
         }
     }
@@ -183,10 +185,5 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0, mBuilder.build());
     }
-
-    private String getTimeString(CalendarEvent ce) {
-        SimpleDateFormat formatter = new SimpleDateFormat("DD-MM-yyyy");
-        return formatter.format(ce.getStartTime());
-    }
-
 }
+
