@@ -32,7 +32,6 @@ public class BarControl {
 
     public void update(TableLayout tl) {
         currentPerc = findPercentFull();
-        Log.v("PERC", Double.toString(currentPerc));
         if(currentPerc > 0.0) {
             TableRow row = new TableRow(tl.getContext());
             LinearLayout ll = new LinearLayout(row.getContext());
