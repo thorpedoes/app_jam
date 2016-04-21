@@ -1,19 +1,24 @@
 package appjam.scheduler;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class EventDetails extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +52,7 @@ public class EventDetails extends AppCompatActivity {
         month = cal.get(Calendar.MONTH);
         day = cal.get(Calendar.DAY_OF_MONTH);
         year = cal.get(Calendar.YEAR);
-        dateString = Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
+        dateString = Integer.toString(month + 1) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
 
         return dateString;
     }
@@ -59,7 +64,7 @@ public class EventDetails extends AppCompatActivity {
         hour = cal.get(Calendar.HOUR_OF_DAY);
         minute = cal.get(Calendar.MINUTE);
         if (hour == 0) timeString = Integer.toString(hour + 12) + ":" + Integer.toString(minute) + " AM";
-        else if (hour >= 12) timeString = Integer.toString(hour - 12) + ":" + Integer.toString(minute) + " PM";
+        else if (hour >= 12) timeString = Integer.toString(hour - 11) + ":" + Integer.toString(minute) + " PM";
         else timeString = Integer.toString(hour) + ":" + Integer.toString(minute) + " AM";
 
         return timeString;
@@ -120,4 +125,39 @@ public class EventDetails extends AppCompatActivity {
         Toast toast = Toast.makeText(context, msg, duration);
         toast.show();
     }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstance) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+
+        }
+    }
+
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstance) {
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+        }
+    }
+
 }
