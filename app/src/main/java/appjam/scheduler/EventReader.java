@@ -72,7 +72,7 @@ public class EventReader {
         newEvent.setTitle(tokens[0]);
         newEvent.setStartTime(getTime(tokens[1].split(":")));
         newEvent.setEndTime(getTime(tokens[2].split(":")));
-        newEvent.setAlrmSound(tokens[3]);
+        newEvent.setIcon(tokens[3]);
         return newEvent;
     }
 
