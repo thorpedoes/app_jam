@@ -10,7 +10,7 @@ import android.os.Parcelable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class CalendarEvent implements Parcelable {
+public class CalendarEvent implements Parcelable, Comparable<CalendarEvent> {
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public CalendarEvent createFromParcel(Parcel source) {
@@ -75,6 +75,11 @@ public class CalendarEvent implements Parcelable {
         if (startTime.before(current) || endTime.before(current)) throw new BeforeTodayException("Event must start after current date");
 
         return true;
+    }
+
+    @Override
+    public int compareTo(CalendarEvent ce) {
+        return this.getEndTime().getTime().compareTo(ce.getEndTime().getTime());
     }
 
     // For debugging

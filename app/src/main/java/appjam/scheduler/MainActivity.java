@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == GET_EVENT) {
             CalendarEvent result = (CalendarEvent)data.getParcelableExtra("newEvent");
             eventList.add(result);
+            Collections.sort(eventList);
             updateBarList();
             Log.d("ADDING RESULT", "THAT WORKED!! new size: " + Integer.toString(eventList.size()));
         } else {

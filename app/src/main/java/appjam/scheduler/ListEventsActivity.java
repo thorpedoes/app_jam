@@ -10,6 +10,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ListEventsActivity extends AppCompatActivity {
@@ -39,17 +40,16 @@ public class ListEventsActivity extends AppCompatActivity {
             LinearLayout ll = new LinearLayout(row.getContext());
 
             TextView titleText = new TextView(ll.getContext());
-            TextView startTimeText = new TextView(ll.getContext());
-            TextView endTimeText =   new TextView(ll.getContext());
+            TextView timeText = new TextView(ll.getContext());
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy  h:mm a");
             titleText.setText(ce.getTitle());
-            startTimeText.setText(ce.getStartTime().toString()); // don't hardcode later
-            endTimeText.setText(ce.getEndTime().toString());
+            timeText.setText(dateFormat.format(ce.getStartTime().getTime()) + "        " + dateFormat.format(ce.getEndTime().getTime()) + '\n');
 
             LinearLayout.LayoutParams match = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             ll.setOrientation(LinearLayout.VERTICAL);
             ll.addView(titleText, match);
-            ll.addView(startTimeText, match);
-            ll.addView(endTimeText, match);
+            ll.addView(timeText, match);
 
             ImageView divider = new ImageView(tl.getContext());
             TableLayout.LayoutParams lp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, 1);
