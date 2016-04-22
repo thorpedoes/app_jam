@@ -161,8 +161,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/saveButton"
             android:layout_below="@+id/image1"
-            android:layout_alignLeft="@+id/image5"
-            android:layout_alignStart="@+id/image5" />
+            android:layout_alignParentRight="true" />
 
         <ImageButton
             android:layout_width="wrap_content"
