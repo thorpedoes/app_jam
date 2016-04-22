@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ public class EventDetails extends AppCompatActivity {
     private Button endDateButton;
     private Button startTimeButton;
     private Button endTimeButton;
+
+    private ImageView img1, img2, img3, img4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,8 @@ public class EventDetails extends AppCompatActivity {
             cancelButton.setOnClickListener(getExitListener());
         if(saveButton != null)
             saveButton.setOnClickListener(getSaveListener());
+
+        registerImages();
     }
 
     private String calendarDate(Calendar cal) {
@@ -154,6 +159,19 @@ public class EventDetails extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, msg, duration);
         toast.show();
+    }
+
+    private void registerImages() {
+        Context context = getApplicationContext();
+        img1 = new ImageView(context);
+        // set the image here
+        //img1.setImageResource(R.id.SOMETHING);
+        img2 = new ImageView(context);
+
+        img3 = new ImageView(context);
+
+        img4 = new ImageView(context);
+
     }
 
     public static class DatePickerFragment extends DialogFragment

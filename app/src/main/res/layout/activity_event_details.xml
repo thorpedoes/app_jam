@@ -13,7 +13,6 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="appjam.scheduler.EventDetails">
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,21 +38,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/nameEntry"
-            android:layout_alignTop="@+id/nameText"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignStart="@+id/endDateButton"
-            android:layout_alignLeft="@+id/endDateButton"
             android:maxLength="20"
             android:maxLines="1"
             android:minLines="1"
-            android:minWidth="50dp"/>
+            android:minWidth="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/startTimeButton"
+            android:layout_alignStart="@+id/startTimeButton" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/startDateButton"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_below="@+id/startTimeText"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -64,13 +61,11 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/startTimeButton"
+            android:id="@+id/endDateButton"
             android:layout_below="@+id/startDateButton"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="30dp"
             android:layout_alignRight="@+id/startDateButton"
-            android:layout_alignEnd="@+id/startDateButton"
             android:onClick="showTimePickerDialog" />
 
         <TextView
@@ -79,20 +74,16 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="End Time"
             android:id="@+id/endTimeText"
-            android:layout_above="@+id/startDateButton"
-            android:layout_alignEnd="@+id/saveButton"
-            android:layout_alignRight="@+id/saveButton"/>
+            android:layout_below="@+id/startTimeButton"
+            android:layout_alignLeft="@+id/iconText"
+            android:layout_alignStart="@+id/iconText" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/endDateButton"
+            android:id="@+id/startTimeButton"
             android:layout_alignTop="@+id/startDateButton"
-            android:layout_alignStart="@+id/endTimeText"
-            android:layout_alignLeft="@+id/endTimeText"
-            android:layout_alignEnd="@+id/endTimeText"
-            android:layout_alignRight="@+id/endTimeText"
-            android:layout_below="@+id/endTimeButton"
+            android:layout_alignParentRight="true"
             android:onClick="showDatePickerDialog" />
 
         <Button
@@ -100,20 +91,19 @@
             android:layout_height="wrap_content"
             android:id="@+id/endTimeButton"
             android:onClick="showTimePickerDialog"
-            android:layout_alignTop="@+id/startTimeButton"
-            android:layout_alignStart="@+id/endDateButton"
-            android:layout_alignLeft="@+id/endDateButton"
-            android:layout_alignRight="@+id/endDateButton"
-            android:layout_alignEnd="@+id/endDateButton" />
+            android:layout_alignTop="@+id/endDateButton"
+            android:layout_alignRight="@+id/saveButton"
+            android:layout_alignLeft="@+id/startTimeButton"
+            android:layout_alignEnd="@+id/saveButton" />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Icon:"
+            android:text="Select Icon:"
             android:id="@+id/iconText"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/startTimeButton" />
+            android:layout_below="@+id/endDateButton" />
 
 
         <Button
@@ -122,10 +112,7 @@
             android:id="@+id/cancelButton"
             android:text="Cancel"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/startTimeButton"
-            android:layout_alignRight="@+id/startTimeButton"
-            android:layout_alignLeft="@+id/startTimeButton"
-            android:layout_alignEnd="@+id/startTimeText"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/iconText" >
         </Button>
 

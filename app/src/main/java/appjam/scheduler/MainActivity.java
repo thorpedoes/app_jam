@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
         for (CalendarEvent ce : eventList) {
-            bars.add(new BarControl(ce, tl));
+            bars.add(new BarControl(ce, tl, this));
         }
 
         Button addButton = (Button) findViewById(R.id.addEventButton);
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         bars.clear();
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
         for (CalendarEvent ce : eventList) {
-            bars.add(new BarControl(ce, tl));
+            bars.add(new BarControl(ce, tl, this));
         }
     }
 

@@ -1,5 +1,6 @@
 package appjam.scheduler;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,12 +17,14 @@ public class BarControl {
     private double currentPerc = 1.0;
     private ImageView m_barImg;
     private boolean m_finished = false;
+    private Activity m_currentActivity;
 
-    public BarControl(CalendarEvent ce, TableLayout tl) {
+    public BarControl(CalendarEvent ce, TableLayout tl, Activity activity) {
         m_ce = ce;
         m_barImg = new ImageView(tl.getContext());
         m_barImg.setImageResource(R.drawable.hb1);
         m_barImg.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+        m_currentActivity = activity;
         update(tl, true);
     }
 
@@ -46,7 +49,7 @@ public class BarControl {
             else
                 ll.addView(m_barImg);
 
-            ll.addView(getXOfEvent(ll.getContext()));
+            ll.addView(getTrashCanOfEvent(ll.getContext()));
 
             row.addView(ll);
             row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
@@ -113,9 +116,9 @@ public class BarControl {
         return result;
     }
 
-    private ImageView getXOfEvent(Context context) {
+    private ImageView getTrashCanOfEvent(Context context) {
         ImageView result = new ImageView(context);
-        result.setImageResource(R.drawable.square); // set it to the right shit
+        result.setImageResource(R.drawable.square);
         result.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
         result.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,5 +128,4 @@ public class BarControl {
         });
         return result;
     }
-
 }
