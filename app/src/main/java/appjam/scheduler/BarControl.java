@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -110,9 +111,23 @@ public class BarControl {
 
 
     private ImageView getIconOfEvent(Context context) {
-        ImageView result = new ImageView(context);
+        ImageView result = new ImageView(m_currentActivity.getApplicationContext());
         result.setImageResource(R.drawable.square);
         result.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar current = Calendar.getInstance();
+                long diff = getEvent().getEndTime().getTimeInMillis() - current.getTimeInMillis();
+                int duration = Toast.LENGTH_SHORT;
+                String msg = getEvent().getTitle();
+                Toast toast = Toast.makeText(m_currentActivity.getApplicationContext(), msg, duration);
+                toast.show();
+            }
+        };
+        result.setOnClickListener(clickListener);
+
         return result;
     }
 
