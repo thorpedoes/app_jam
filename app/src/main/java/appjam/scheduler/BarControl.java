@@ -49,7 +49,7 @@ public class BarControl {
             ll.addView(getTrashCanOfEvent(row.getContext()));
             ll.addView(getIconOfEvent(ll.getContext()));
 
-            if(!initial && m_barImg.getMaxHeight() > 0 && m_barImg.getMaxWidth() > 0)
+            if(!initial && m_barImg.getHeight() > 0 && m_barImg.getWidth() > 0)
                 ll.addView(getBarOfEvent(ll.getContext()));
             else
                 ll.addView(m_barImg);
@@ -130,6 +130,7 @@ public class BarControl {
             private String findTimeLeft() {
                 String timeLeft = null;
                 Calendar current = Calendar.getInstance();
+                current.set(Calendar.SECOND, 0);
                 long diff = getEvent().getEndTime().getTimeInMillis() - current.getTimeInMillis();
                 if (diff > 86400000) {
                     SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy, h:mm a");

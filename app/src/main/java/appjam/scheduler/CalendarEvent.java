@@ -72,7 +72,7 @@ public class CalendarEvent implements Parcelable, Comparable<CalendarEvent> {
         if (title.isEmpty()) throw new EmptyEventTitleException("Can't have an empty event title");
         if (endTime.before(startTime)) throw new EndBeforeStartException("End date must be after start date");
         Calendar current = Calendar.getInstance();
-        if (startTime.before(current) || endTime.before(current)) throw new BeforeTodayException("Event must start after current date");
+        if (startTime.before(current) || endTime.before(current)) throw new BeforeTodayException("Event must start after current date and time");
 
         return true;
     }

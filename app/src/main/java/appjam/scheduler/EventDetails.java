@@ -146,6 +146,7 @@ public class EventDetails extends AppCompatActivity {
         Calendar startTime = TimePickerFragment.getStartTime();
         startDate.set(Calendar.HOUR_OF_DAY, startTime.get(Calendar.HOUR_OF_DAY));
         startDate.set(Calendar.MINUTE, startTime.get(Calendar.MINUTE));
+        startTime.set(Calendar.SECOND, 0);
         return startDate;
     }
 
@@ -154,6 +155,7 @@ public class EventDetails extends AppCompatActivity {
         Calendar endTime = TimePickerFragment.getEndTime();
         endDate.set(Calendar.HOUR_OF_DAY, endTime.get(Calendar.HOUR_OF_DAY));
         endDate.set(Calendar.MINUTE, endTime.get(Calendar.MINUTE));
+        endDate.set(Calendar.SECOND, 0);
         return endDate;
     }
 
