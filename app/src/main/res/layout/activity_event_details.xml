@@ -41,9 +41,10 @@
             android:maxLength="20"
             android:maxLines="1"
             android:minLines="1"
-            android:minWidth="110dp"
+            android:minWidth="150dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true" />
+            android:layout_toRightOf="@+id/image3"
+            android:layout_toEndOf="@+id/image3" />
 
         <Button
             android:layout_width="wrap_content"
@@ -65,7 +66,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignRight="@+id/startDateButton"
-            android:onClick="showDatePickerDialog" />
+            android:onClick="showDatePickerDialog"
+            android:layout_marginBottom="30dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,10 +83,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/startTimeButton"
-            android:layout_alignLeft="@+id/nameEntry"
+            android:onClick="showTimePickerDialog"
             android:layout_alignTop="@+id/startDateButton"
-            android:layout_alignParentRight="true"
-            android:onClick="showTimePickerDialog" />
+            android:layout_toRightOf="@+id/image2"
+            android:layout_toEndOf="@+id/image2" />
 
         <Button
             android:layout_width="wrap_content"
@@ -93,7 +95,8 @@
             android:onClick="showTimePickerDialog"
             android:layout_alignTop="@+id/endDateButton"
             android:layout_alignLeft="@+id/startTimeButton"
-            android:layout_alignRight="@+id/startTimeButton" />
+            android:layout_alignRight="@+id/startTimeButton"
+            android:layout_marginBottom="50dp" />
 
 
         <TextView
@@ -110,7 +113,7 @@
             android:id="@+id/image1"
             android:src="@drawable/icon1"
             android:layout_below="@+id/iconText"
-        >
+            android:layout_marginBottom="15dp">
         </ImageView>
 
         <ImageView
@@ -158,7 +161,9 @@
             android:layout_width="wrap_content"
             android:id="@+id/cancelButton"
             android:text="Cancel"
-            android:layout_below ="@+id/image4" >
+            android:layout_below="@+id/image1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
         </Button>
 
         <Button
