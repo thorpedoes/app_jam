@@ -1,6 +1,5 @@
 package appjam.scheduler;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -17,9 +16,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -29,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private int m_checkInterval = 500; // 500 ms = .5 sec, check status every .5 seconds
     private Handler m_handler = new Handler();
     private ArrayList<BarControl> bars = new ArrayList<>();
-    private EventReader reader;
-    private EventWriter writer;
 
     public static int GET_EVENT = 0;
 
@@ -46,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        reader = new EventReader(getApplicationContext());
+        EventReader reader = new EventReader(getApplicationContext());
         try {
             eventList = reader.readFromFile();
             Log.d("EVENTREADER", "read");
@@ -73,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        writer = new EventWriter(getApplicationContext(), eventList);
+        EventWriter writer = new EventWriter(getApplicationContext(), eventList);
         try {
             writer.writeToFile();
             Log.d("EVENTWRTIER", "onPause");
@@ -85,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == GET_EVENT) {
-            CalendarEvent result = (CalendarEvent) data.getParcelableExtra("newEvent");
+            CalendarEvent result = data.getParcelableExtra("newEvent");
             eventList.add(result);
             Collections.sort(eventList);
             updateBarList();
@@ -93,32 +88,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d("ADDING RESULT", "that was no valid");
         }
-        if (resultCode == RESULT_OK) {
-            //m_StatusChecker.run();
-        }
-    }
-
-    private ArrayList<CalendarEvent> getSampleEventList() {
-        ArrayList<CalendarEvent> result = new ArrayList<>();
-        Calendar cal = Calendar.getInstance();
-
-        cal.set(Calendar.YEAR, 2016);
-        cal.set(Calendar.MONTH, Calendar.APRIL);
-        cal.set(Calendar.DAY_OF_MONTH, 22);
-        cal.set(Calendar.HOUR_OF_DAY, 14);
-
-        Calendar end = Calendar.getInstance();
-        end.set(Calendar.YEAR, 2016);
-        end.set(Calendar.MONTH, Calendar.APRIL);
-        end.set(Calendar.DAY_OF_MONTH, 23);
-        end.set(Calendar.HOUR_OF_DAY, 14);
-        end.set(Calendar.MINUTE, 52);
-
-        CalendarEvent testCE = new CalendarEvent("Test", cal, end, "cool music");
-        CalendarEvent testCE1 = new CalendarEvent("Whatever", cal, end, "cool music");
-        result.add(testCE);
-        result.add(testCE1);
-        return result;
     }
 
     private void showHealthBarScreen() {

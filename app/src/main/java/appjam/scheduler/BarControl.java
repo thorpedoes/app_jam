@@ -116,7 +116,7 @@ public class BarControl {
 
     private ImageView getIconOfEvent(Context context) {
         ImageView result = new ImageView(m_currentActivity.getApplicationContext());
-        result.setImageResource(R.drawable.square);
+        result.setImageResource(titleToIcon(m_ce.getIcon()));
         result.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
 
         View.OnClickListener clickListener = new View.OnClickListener() {
@@ -153,7 +153,7 @@ public class BarControl {
 
     private ImageView getTrashCanOfEvent(Context context) {
         ImageView result = new ImageView(context);
-        result.setImageResource(R.drawable.square);
+        result.setImageResource(R.drawable.remove_event_button);
         result.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
         result.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,4 +163,23 @@ public class BarControl {
         });
         return result;
     }
+
+    private int titleToIcon(String iconString) {
+        if(iconString == "Image1") {
+            return R.drawable.icon1;
+        } else if(iconString == "Image2") {
+            return R.drawable.icon2;
+        } else if(iconString == "Image3") {
+            return R.drawable.icon3;
+        } else if(iconString == "Image4") {
+            return R.drawable.icon4;
+        } else if(iconString == "Image5") {
+            return R.drawable.icon5;
+        } else if(iconString == "Image6") {
+            return R.drawable.icon6;
+        } else {
+            return R.drawable.icon1;
+        }
+    }
+
 }
