@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,7 +38,6 @@ public class BarControl {
     public void update(TableLayout tl, boolean initial) {
         currentPerc = findPercentFull();
         if(currentPerc > 0.01) {
-            m_barImg = getNewBar(tl);
 
             TableRow row = new TableRow(tl.getContext());
             row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
@@ -49,10 +49,12 @@ public class BarControl {
             ll.addView(getTrashCanOfEvent(row.getContext()));
             ll.addView(getIconOfEvent(ll.getContext()));
 
-            if(!initial && m_barImg.getHeight() > 0 && m_barImg.getWidth() > 0)
+            if(!initial && m_barImg.getHeight() > 0 && m_barImg.getWidth() > 0) {
                 ll.addView(getBarOfEvent(ll.getContext()));
-            else
+            } else {
+                m_barImg = getNewBar(tl);
                 ll.addView(m_barImg);
+            }
 
             row.addView(ll);
 
