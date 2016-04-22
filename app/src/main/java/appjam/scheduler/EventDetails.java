@@ -44,7 +44,7 @@ public class EventDetails extends AppCompatActivity {
     }
 
     private void registerButtons(Bundle savedInstanceState) {
-        Button cancelButton = (Button) findViewById(R.id.cancelButton);
+        ImageButton cancelButton = (ImageButton) findViewById(R.id.cancelButton);
         ImageButton saveButton = (ImageButton) findViewById(R.id.saveButton);
 
         Calendar cal = Calendar.getInstance();
@@ -61,8 +61,10 @@ public class EventDetails extends AppCompatActivity {
         endTimeButton = (Button) findViewById(R.id.endTimeButton);
         endTimeButton.setText(calendarTime(cal));
 
-        if(cancelButton != null)
+        if(cancelButton != null) {
+            cancelButton.setBackgroundResource(R.drawable.cancel_icon);
             cancelButton.setOnClickListener(getExitListener());
+        }
         if(saveButton != null) {
             saveButton.setBackgroundResource(R.drawable.save_button);
             saveButton.setOnClickListener(getSaveListener());

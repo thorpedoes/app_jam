@@ -138,7 +138,10 @@ public class BarControl {
 
                 long hour = (diff / 1000) / 60 / 60;
                 long minute = (diff - (hour * 60 * 60 * 1000)) / 1000 / 60;
-                timeLeft = Integer.toString((int) hour) + "h, " + Integer.toString((int) minute) + "m";
+
+                timeLeft = "Ends in ";
+                if (hour > 0) timeLeft += Integer.toString((int) hour) + "h, ";
+                timeLeft += Integer.toString((int) minute) + "m";
 
                 return timeLeft;
             }

@@ -156,22 +156,21 @@
             >
         </ImageView>
 
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/cancelButton"
-            android:text="Cancel"
-            android:layout_below="@+id/image1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-        </Button>
-
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/saveButton"
-            android:layout_alignTop="@+id/cancelButton"
-            android:layout_centerHorizontal="true" />
+            android:layout_below="@+id/image1"
+            android:layout_alignLeft="@+id/image5"
+            android:layout_alignStart="@+id/image5" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancelButton"
+            android:layout_alignTop="@+id/saveButton"
+            android:layout_toLeftOf="@+id/image3"
+            android:layout_toStartOf="@+id/image3" />
 
     </RelativeLayout>
 </ScrollView>
