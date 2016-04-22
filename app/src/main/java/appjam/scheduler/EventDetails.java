@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class EventDetails extends AppCompatActivity {
@@ -29,7 +31,9 @@ public class EventDetails extends AppCompatActivity {
     private Button startTimeButton;
     private Button endTimeButton;
 
-    private ImageView img1, img2, img3, img4;
+    private ArrayList<ImageView> images = new ArrayList<>();
+
+    private String m_selectedIcon = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +131,7 @@ public class EventDetails extends AppCompatActivity {
 
         result.setStartTime(startDateTime);
         result.setEndTime(endDateTime);
-        result.setIcon("WE DONT HAVE ANY");
+        result.setIcon(m_selectedIcon);
         result.setTitle(title);
         return result;
     }
@@ -162,16 +166,73 @@ public class EventDetails extends AppCompatActivity {
     }
 
     private void registerImages() {
-        Context context = getApplicationContext();
-        img1 = new ImageView(context);
-        // set the image here
-        //img1.setImageResource(R.id.SOMETHING);
-        img2 = new ImageView(context);
+        ImageView icon1 = (ImageView) findViewById(R.id.image1);
+        assert icon1 != null;
+        icon1.setOnClickListener(getHighlightClicker());
+        images.add(icon1);
 
-        img3 = new ImageView(context);
+        ImageView icon2 = (ImageView) findViewById(R.id.image2);
+        assert icon2 != null;
+        icon2.setOnClickListener(getHighlightClicker());
+        images.add(icon2);
 
-        img4 = new ImageView(context);
+        ImageView icon3 = (ImageView) findViewById(R.id.image3);
+        assert icon3 != null;
+        icon3.setOnClickListener(getHighlightClicker());
+        images.add(icon3);
 
+        ImageView icon4 = (ImageView) findViewById(R.id.image4);
+        assert icon4 != null;
+        icon4.setOnClickListener(getHighlightClicker());
+        images.add(icon4);
+
+        ImageView icon5 = (ImageView) findViewById(R.id.image5);
+        assert icon5 != null;
+        icon5.setOnClickListener(getHighlightClicker());
+        images.add(icon5);
+
+        ImageView icon6 = (ImageView) findViewById(R.id.image6);
+        assert icon6 != null;
+        icon6.setOnClickListener(getHighlightClicker());
+        images.add(icon6);
+    }
+
+    private View.OnClickListener getHighlightClicker() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView iv = (ImageView) v;
+                iv.setColorFilter(Color.argb(175, 192, 192, 192));
+                deselectAllOtherIcons(v);
+                m_selectedIcon = idToString(v.getId());
+            }
+        };
+    }
+
+    private void deselectAllOtherIcons(View v) {
+        for(ImageView iv : images) {
+            if(iv != v) {
+               iv.setColorFilter(Color.argb(0, 0, 0, 0));
+            }
+        }
+    }
+
+    private String idToString(int id) {
+        if(id == R.id.image1) {
+            return "Image1";
+        } else if(id == R.id.image2) {
+            return "Image2";
+        } else if(id == R.id.image3) {
+            return "Image3";
+        } else if(id == R.id.image4) {
+            return "Image4";
+        } else if(id == R.id.image5) {
+            return "Image5";
+        } else if(id == R.id.image6) {
+            return "Image6";
+        } else {
+            return "";
+        }
     }
 
     public static class DatePickerFragment extends DialogFragment
