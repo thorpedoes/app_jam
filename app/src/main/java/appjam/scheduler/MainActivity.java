@@ -11,9 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,14 +95,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void showHealthBarScreen() {
         setContentView(R.layout.health_bar_screen);
+        TextView v = (TextView) findViewById(R.id.titleText);
+        v.setBackgroundResource(R.drawable.main_title_background);
+        v.setGravity(Gravity.CENTER);
 
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
         for (CalendarEvent ce : eventList) {
             bars.add(new BarControl(ce, tl, this));
         }
 
-        Button addButton = (Button) findViewById(R.id.addEventButton);
+        ImageButton addButton = (ImageButton) findViewById(R.id.addEventButton);
         assert addButton != null;
+        addButton.setBackgroundResource(R.drawable.add_event_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EventDetails.class);
@@ -107,8 +114,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button calButton = (Button) findViewById(R.id.calendarButton);
+
+
+        ImageButton calButton = (ImageButton) findViewById(R.id.calendarButton);
         assert calButton != null;
+        calButton.setBackgroundResource(R.drawable.calendar_button);
         calButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ListEventsActivity.class);
@@ -116,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
     }
 
     private void updateBars(TableLayout tl) {

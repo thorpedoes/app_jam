@@ -10,24 +10,7 @@
         android:typeface="serif"
         android:id="@+id/titleText"
         android:layout_marginTop="22dp"
-        android:layout_below="@+id/addEventButton"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:id="@+id/addEventButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calendar"
-        android:id="@+id/calendarButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/titleText" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -35,10 +18,24 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/titleText"
         android:layout_marginTop="22dp"
-        android:layout_alignRight="@+id/addEventButton"
-        android:layout_alignEnd="@+id/addEventButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
     </TableLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/calendarButton"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/addEventButton"
+        android:layout_toStartOf="@+id/addEventButton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addEventButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
