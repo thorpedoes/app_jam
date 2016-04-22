@@ -25,9 +25,7 @@ public class BarControl {
 
     public BarControl(CalendarEvent ce, TableLayout tl, Activity activity) {
         m_ce = ce;
-        m_barImg = new ImageView(tl.getContext());
-        m_barImg.setImageResource(R.drawable.hb1);
-        m_barImg.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+        m_barImg = getNewBar(tl);
         m_currentActivity = activity;
         update(tl, true);
     }
@@ -39,6 +37,8 @@ public class BarControl {
     public void update(TableLayout tl, boolean initial) {
         currentPerc = findPercentFull();
         if(currentPerc > 0.01) {
+            m_barImg = getNewBar(tl);
+
             TableRow row = new TableRow(tl.getContext());
             row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
             row.setOrientation(TableRow.HORIZONTAL);
@@ -149,6 +149,13 @@ public class BarControl {
         };
         result.setOnClickListener(clickListener);
 
+        return result;
+    }
+
+    private ImageView getNewBar(TableLayout tl) {
+        ImageView result = new ImageView(tl.getContext());
+        result.setImageResource(R.drawable.hb1);
+        result.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
         return result;
     }
 
