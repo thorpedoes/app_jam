@@ -41,10 +41,9 @@
             android:maxLength="20"
             android:maxLines="1"
             android:minLines="1"
-            android:minWidth="50dp"
+            android:minWidth="110dp"
             android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/startTimeButton"
-            android:layout_alignStart="@+id/startTimeButton" />
+            android:layout_alignParentRight="true" />
 
         <Button
             android:layout_width="wrap_content"
@@ -66,13 +65,13 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignRight="@+id/startDateButton"
-            android:onClick="showTimePickerDialog" />
+            android:onClick="showDatePickerDialog" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="End Time"
+            android:text="End Time:"
             android:id="@+id/endTimeText"
             android:layout_below="@+id/startTimeButton"
             android:layout_alignLeft="@+id/iconText"
@@ -82,9 +81,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/startTimeButton"
+            android:layout_alignLeft="@+id/nameEntry"
             android:layout_alignTop="@+id/startDateButton"
             android:layout_alignParentRight="true"
-            android:onClick="showDatePickerDialog" />
+            android:onClick="showTimePickerDialog" />
 
         <Button
             android:layout_width="wrap_content"
@@ -92,9 +92,8 @@
             android:id="@+id/endTimeButton"
             android:onClick="showTimePickerDialog"
             android:layout_alignTop="@+id/endDateButton"
-            android:layout_alignRight="@+id/saveButton"
             android:layout_alignLeft="@+id/startTimeButton"
-            android:layout_alignEnd="@+id/saveButton" />
+            android:layout_alignRight="@+id/startTimeButton" />
 
 
         <TextView
