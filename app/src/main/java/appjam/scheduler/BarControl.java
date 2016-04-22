@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ScaleDrawable;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class BarControl {
@@ -118,12 +122,28 @@ public class BarControl {
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int duration = Toast.LENGTH_SHORT;
+                String msg = getEvent().getTitle() + ": " + findTimeLeft();
+                Toast toast = Toast.makeText(m_currentActivity.getApplicationContext(), msg, duration);
+                TextView tv = (TextView) toast.getView().findViewById(android.R.id.message);
+                if (tv != null) tv.setGravity(Gravity.CENTER);
+                toast.show();
+            }
+
+            private String findTimeLeft() {
+                String timeLeft = null;
                 Calendar current = Calendar.getInstance();
                 long diff = getEvent().getEndTime().getTimeInMillis() - current.getTimeInMillis();
-                int duration = Toast.LENGTH_SHORT;
-                String msg = getEvent().getTitle();
-                Toast toast = Toast.makeText(m_currentActivity.getApplicationContext(), msg, duration);
-                toast.show();
+                if (diff > 86400000) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy, h:mm a");
+                    return "Ends " + sdf.format(getEvent().getEndTime().getTime());
+                }
+
+                long hour = (diff / 1000) / 60 / 60;
+                long minute = (diff - (hour * 60 * 60 * 1000)) / 1000 / 60;
+                timeLeft = Integer.toString((int) hour) + "h, " + Integer.toString((int) minute) + "m";
+
+                return timeLeft;
             }
         };
         result.setOnClickListener(clickListener);
