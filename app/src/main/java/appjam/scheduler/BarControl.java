@@ -109,7 +109,7 @@ public class BarControl {
         ImageView result = new ImageView(context);
         result.setImageBitmap(cropped);
         setBarPadding(result, context);
-        result.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        result.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         return result;
     }
 
@@ -158,7 +158,7 @@ public class BarControl {
     private ImageView getNewBar(TableLayout tl) {
         ImageView result = new ImageView(tl.getContext());
         result.setImageResource(R.drawable.hb1);
-        result.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+        result.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         return result;
     }
 

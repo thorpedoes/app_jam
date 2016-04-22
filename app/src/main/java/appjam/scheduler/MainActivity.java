@@ -149,9 +149,11 @@ public class MainActivity extends AppCompatActivity {
     private void updateBarList() {
         bars.clear();
         TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
+        tl.removeAllViews();
         for (CalendarEvent ce : eventList) {
             bars.add(new BarControl(ce, tl, this));
         }
+        updateBars(tl);
     }
 
     private void notifyFinished(CalendarEvent ce) {
