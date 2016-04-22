@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -44,7 +45,7 @@ public class EventDetails extends AppCompatActivity {
 
     private void registerButtons(Bundle savedInstanceState) {
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
-        Button saveButton = (Button) findViewById(R.id.saveButton);
+        ImageButton saveButton = (ImageButton) findViewById(R.id.saveButton);
 
         Calendar cal = Calendar.getInstance();
 
@@ -62,8 +63,10 @@ public class EventDetails extends AppCompatActivity {
 
         if(cancelButton != null)
             cancelButton.setOnClickListener(getExitListener());
-        if(saveButton != null)
+        if(saveButton != null) {
+            saveButton.setBackgroundResource(R.drawable.save_button);
             saveButton.setOnClickListener(getSaveListener());
+        }
 
         registerImages();
     }
