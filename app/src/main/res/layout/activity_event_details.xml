@@ -153,16 +153,6 @@
             >
         </ImageView>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/image6"
-            android:src="@drawable/icon6"
-            android:layout_below ="@+id/iconText"
-            android:layout_toRightOf="@+id/image5"
-            >
-        </ImageView>
-
         <Button
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"

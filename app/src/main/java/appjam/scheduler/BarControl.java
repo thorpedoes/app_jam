@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ScaleDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,10 +32,6 @@ public class BarControl {
         update(tl, true);
     }
 
-    public ImageView getFullImage() {
-        return m_barImg;
-    }
-
     public void update(TableLayout tl) {
         update(tl, false);
     }
@@ -45,22 +40,24 @@ public class BarControl {
         currentPerc = findPercentFull();
         if(currentPerc > 0.01) {
             TableRow row = new TableRow(tl.getContext());
+            row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+            row.setOrientation(TableRow.HORIZONTAL);
             LinearLayout ll = new LinearLayout(row.getContext());
             ll.setOrientation(LinearLayout.HORIZONTAL);
+            ll.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
 
+            ll.addView(getTrashCanOfEvent(row.getContext()));
             ll.addView(getIconOfEvent(ll.getContext()));
-            if(!initial)
+
+            if(!initial && m_barImg.getMaxHeight() > 0 && m_barImg.getMaxWidth() > 0)
                 ll.addView(getBarOfEvent(ll.getContext()));
             else
                 ll.addView(m_barImg);
 
-            ll.addView(getTrashCanOfEvent(ll.getContext()));
-
             row.addView(ll);
-            row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+
             int density = (int) tl.getResources().getDisplayMetrics().density;
             int pad = 20 * density;
-
             row.setPadding(pad, pad, 0, 0);
 
             tl.addView(row);
@@ -154,7 +151,7 @@ public class BarControl {
     private ImageView getTrashCanOfEvent(Context context) {
         ImageView result = new ImageView(context);
         result.setImageResource(R.drawable.remove_event_button);
-        result.setLayoutParams(new LinearLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT));
+        result.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         result.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,18 +162,16 @@ public class BarControl {
     }
 
     private int titleToIcon(String iconString) {
-        if(iconString == "Image1") {
+        if(iconString.equals("Image1")) {
             return R.drawable.icon1;
-        } else if(iconString == "Image2") {
+        } else if(iconString.equals("Image2")) {
             return R.drawable.icon2;
-        } else if(iconString == "Image3") {
+        } else if(iconString.equals("Image3")) {
             return R.drawable.icon3;
-        } else if(iconString == "Image4") {
+        } else if(iconString.equals("Image4")) {
             return R.drawable.icon4;
-        } else if(iconString == "Image5") {
+        } else if(iconString.equals("Image5")) {
             return R.drawable.icon5;
-        } else if(iconString == "Image6") {
-            return R.drawable.icon6;
         } else {
             return R.drawable.icon1;
         }

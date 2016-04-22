@@ -190,11 +190,6 @@ public class EventDetails extends AppCompatActivity {
         assert icon5 != null;
         icon5.setOnClickListener(getHighlightClicker());
         images.add(icon5);
-
-        ImageView icon6 = (ImageView) findViewById(R.id.image6);
-        assert icon6 != null;
-        icon6.setOnClickListener(getHighlightClicker());
-        images.add(icon6);
     }
 
     private View.OnClickListener getHighlightClicker() {
@@ -228,8 +223,6 @@ public class EventDetails extends AppCompatActivity {
             return "Image4";
         } else if(id == R.id.image5) {
             return "Image5";
-        } else if(id == R.id.image6) {
-            return "Image6";
         } else {
             return "";
         }
