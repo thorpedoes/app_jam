@@ -51,6 +51,7 @@ public class EventReader {
         if (inFile.exists()) {
             String line = null;
             while ((line = buffer.readLine()) != null) {
+                Log.d("LINE", line);
                 String[] tokens = line.split(";");
                 try {
                     CalendarEvent event = makeEvent(tokens);
@@ -69,10 +70,12 @@ public class EventReader {
 
     private CalendarEvent makeEvent(String[] tokens) {
         CalendarEvent newEvent = new CalendarEvent();
+
         newEvent.setTitle(tokens[0]);
         newEvent.setStartTime(getTime(tokens[1].split(":")));
         newEvent.setEndTime(getTime(tokens[2].split(":")));
         newEvent.setIcon(tokens[3]);
+
         return newEvent;
     }
 

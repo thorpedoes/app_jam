@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == GET_EVENT) {
             CalendarEvent result = data.getParcelableExtra("newEvent");
+            Log.d("RESULT", result.getIcon());
             eventList.add(result);
             Collections.sort(eventList);
             updateBarList();

@@ -34,7 +34,7 @@ public class EventDetails extends AppCompatActivity {
 
     private ArrayList<ImageView> images = new ArrayList<>();
 
-    private String m_selectedIcon = "";
+    private String m_selectedIcon = "Image1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
