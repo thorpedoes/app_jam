@@ -109,6 +109,7 @@ public class BarControl {
         ImageView result = new ImageView(context);
         result.setImageBitmap(cropped);
         setBarPadding(result, context);
+        result.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
         return result;
     }
 
